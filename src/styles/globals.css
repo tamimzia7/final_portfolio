@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background-color: #050505;
+    color: #ffffff;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection { background: rgba(124, 92, 255, 0.3); color: #ffffff; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #050505; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .glass-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(124, 92, 255, 0.3);
+  }
+  .text-gradient {
+    background: linear-gradient(135deg, #7c5cff, #3bc9ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-padding { padding: 120px 0; }
+  .max-width-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+  }
+
+  @media (max-width: 1024px) {
+    .max-width-container { padding: 0 40px; }
+    .section-padding { padding: 80px 0; }
+  }
+  @media (max-width: 768px) {
+    .max-width-container { padding: 0 24px; }
+    .section-padding { padding: 64px 0; }
+  }
+}
+
+@layer utilities {
+  .perspective-1000 { perspective: 1000px; }
+  .preserve-3d { transform-style: preserve-3d; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@layer components {
+  .glass-laravel {
+    background: rgba(255, 45, 32, 0.04);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 45, 32, 0.15);
+  }
+  .glass-laravel:hover {
+    background: rgba(255, 45, 32, 0.08);
+    border-color: rgba(255, 45, 32, 0.3);
+  }
+  .text-laravel {
+    color: #FF2D20;
+  }
+  .border-laravel {
+    border-color: rgba(255, 45, 32, 0.3);
+  }
+}
