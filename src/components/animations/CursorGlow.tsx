@@ -1,9 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function CursorGlow() {
   const ref = useRef<HTMLDivElement>(null);
+  const [isTouchDevice] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+  );
 
   useEffect(() => {
+    if (isTouchDevice) return;
     const el = ref.current;
     if (!el) return;
     let mx = -100, my = -100, cx = -100, cy = -100;
@@ -17,7 +21,9 @@ export function CursorGlow() {
     };
     animate();
     return () => document.removeEventListener("mousemove", handleMove);
-  }, []);
+  }, [isTouchDevice]);
+
+  if (isTouchDevice) return null;
 
   return (
     <div ref={ref} className="fixed top-0 left-0 w-[300px] h-[300px] pointer-events-none z-[99]"

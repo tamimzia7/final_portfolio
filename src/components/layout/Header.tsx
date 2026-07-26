@@ -211,7 +211,7 @@ export function Header() {
               exit="exit"
               onTouchStart={handlePanelTouchStart}
               onTouchEnd={handlePanelTouchEnd}
-              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] z-[9999] md:hidden flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] z-[9999] md:hidden flex flex-col overflow-y-auto"
               style={{
                 background: "rgba(10,10,10,0.95)",
                 backdropFilter: "blur(40px)",
@@ -238,7 +238,7 @@ export function Header() {
               </div>
 
               {/* Navigation items */}
-              <nav className="flex-1 px-3 py-4 overflow-y-auto">
+              <nav className="flex-1 px-3 py-4 min-h-0" style={{ overflowY: "auto" as const }}>
                 <ul className="space-y-1">
                   {nav.map((item, i) => {
                     const isActive = pathname === item.path;

@@ -32,5 +32,5 @@ export function NoiseOverlay() {
     return () => { cancelAnimationFrame(id); window.removeEventListener("resize", resize); };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[100]" style={{ mixBlendMode: "overlay", opacity: 0.4 }} />;
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-[100]" style={{ mixBlendMode: "overlay", opacity: 0.4, touchAction: "none" }} />;
 }
