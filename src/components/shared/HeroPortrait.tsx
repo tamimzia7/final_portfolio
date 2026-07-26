@@ -9,7 +9,7 @@ export function HeroPortrait({ variant = "hero" }: HeroPortraitProps) {
 
   return (
     <div
-      className={`relative ${isHero ? "w-full max-w-[420px] lg:max-w-[500px]" : "w-full max-w-[400px] lg:max-w-[480px]"}`}
+      className={`relative ${isHero ? "w-full max-w-[280px] sm:max-w-[400px] lg:max-w-[500px]" : "w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[480px]"}`}
     >
       <div
         className={`relative overflow-hidden ${

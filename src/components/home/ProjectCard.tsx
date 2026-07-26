@@ -72,8 +72,12 @@ function getScheme(title: string) {
 export function ProjectCard({ title, description, tags, slug, featured, imageSrc, imageAspectRatio = "16/11" }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  // Detect touch device immediately (no need for state/effect since matchMedia is synchronous)
+  const isTouchDevice = useRef(
+    typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+  ).current;
 
-  // 3D Tilt
+  // 3D Tilt — disabled on touch devices
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
@@ -82,7 +86,7 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isTouchDevice) return;
     const rect = cardRef.current.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
@@ -98,6 +102,7 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
   };
 
   const handleMouseLeave = () => {
+    if (isTouchDevice) return;
     x.set(0);
     y.set(0);
     setIsHovered(false);
@@ -107,14 +112,28 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
     }
   };
 
+  const handleTouchStart = () => {
+    if (isTouchDevice) {
+      setIsHovered(true);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (isTouchDevice) {
+      setIsHovered(false);
+    }
+  };
+
   const scheme = getScheme(title);
 
   return (
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => { if (!isTouchDevice) setIsHovered(true); }}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       className="group relative cursor-pointer"
     >

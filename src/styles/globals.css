@@ -65,6 +65,41 @@
   .preserve-3d { transform-style: preserve-3d; }
 }
 
+/* Mobile performance optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable expensive hover effects on touch devices */
+  .hover\:scale-\[1\.02\]:hover { transform: none !important; }
+  .group-hover\:scale-\[1\.08\]:hover { transform: none !important; }
+
+  /* Reduce glass blur on mobile for performance */
+  .glass { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+  /* Simplify shadows on mobile */
+  * { -webkit-tap-highlight-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Smooth touch scrolling */
+@supports (-webkit-overflow-scrolling: touch) {
+  body { -webkit-overflow-scrolling: touch; }
+}
+
+/* Prevent horizontal overflow everywhere */
+#root { overflow-x: hidden; }
+
+/* Improve tap target sizes on mobile */
+@media (max-width: 768px) {
+  button, a { min-height: 44px; }
+  .nav-link { min-height: 44px; display: flex; align-items: center; }
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
@@ -72,6 +107,11 @@
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+/* Disable float animation on mobile for performance */
+@media (max-width: 768px) {
+  .animate-float { animation: none !important; }
 }
 
 @layer components {

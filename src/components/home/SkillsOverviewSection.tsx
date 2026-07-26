@@ -166,9 +166,12 @@ export function SkillsOverviewSection() {
           {categories.map((cat, ci) => (
             <div key={cat.name} className="skill-category">
               <div
-                className={`relative overflow-hidden rounded-3xl p-5 md:p-6 h-full border ${cat.border} ${cat.bg} transition-all duration-500 group`}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 30px ${cat.color}11` }}
+                className={`relative overflow-hidden rounded-3xl p-5 md:p-6 h-full border ${cat.border} ${cat.bg} transition-all duration-500 group mobile-hover-card`}
+                style={{ ['--glow-color' as string]: cat.color }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 30px ${cat.color}22` }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = 'none' }}
+                onTouchStart={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = `0 0 30px ${cat.color}22` }}
+                onTouchEnd={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = 'none' }}
               >
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-5">

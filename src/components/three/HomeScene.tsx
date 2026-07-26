@@ -53,10 +53,12 @@ function FloatingObjects() {
   ));
 }
 
-function Particles() {
+const isMobile = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+
+function Particles({ mobile = false }: { mobile?: boolean }) {
   const ref = useRef<THREE.Points>(null);
   const [positions, colors] = useMemo(() => {
-    const count = 200;
+    const count = mobile ? 60 : 200;
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -69,7 +71,7 @@ function Particles() {
       col[i3] = c.r; col[i3 + 1] = c.g; col[i3 + 2] = c.b;
     }
     return [pos, col];
-  }, []);
+  }, [mobile]);
 
   useFrame((_, d) => { if (ref.current) { ref.current.rotation.y += d * 0.05; ref.current.rotation.x += d * 0.02; } });
 
@@ -79,12 +81,13 @@ function Particles() {
         <bufferAttribute attach="attributes-position" count={positions.length / 3} array={positions} itemSize={3} />
         <bufferAttribute attach="attributes-color" count={colors.length / 3} array={colors} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.02} vertexColors transparent opacity={0.8} sizeAttenuation blending={THREE.AdditiveBlending} depthWrite={false} />
+      <pointsMaterial size={mobile ? 0.015 : 0.02} vertexColors transparent opacity={0.6} sizeAttenuation blending={THREE.AdditiveBlending} depthWrite={false} />
     </points>
   );
 }
 
-function GradientRing() {
+function GradientRing({ mobile = false }: { mobile?: boolean }) {
+  if (mobile) return null;
   return (
     <group>
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, -0.8, -1]}>
@@ -100,17 +103,19 @@ function GradientRing() {
 }
 
 export function HomeScene() {
+  const mobile = isMobile;
+
   return (
     <div className="absolute inset-0 -z-10">
-      <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+      <Canvas camera={{ position: [0, 0, 4], fov: 45 }} gl={mobile ? { powerPreference: "low-power", antialias: false } : undefined}>
         <Suspense fallback={null}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[5, 5, 5]} intensity={1} color="#7C5CFF" />
-          <pointLight position={[-5, -5, 5]} intensity={0.5} color="#3BC9FF" />
+          <ambientLight intensity={mobile ? 0.3 : 0.5} />
+          {!mobile && <pointLight position={[5, 5, 5]} intensity={1} color="#7C5CFF" />}
+          <pointLight position={[-5, -5, 5]} intensity={mobile ? 0.3 : 0.5} color="#3BC9FF" />
           <Character />
-          <GradientRing />
+          <GradientRing mobile={mobile} />
           <FloatingObjects />
-          <Particles />
+          <Particles mobile={mobile} />
         </Suspense>
       </Canvas>
     </div>

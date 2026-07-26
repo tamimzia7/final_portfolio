@@ -175,22 +175,22 @@ export function HeroSection() {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            className="hidden lg:flex justify-center items-center relative"
+            className="flex justify-center items-center relative max-sm:mt-8 sm:mt-0"
           >
-            {/* Outer glow ring */}
+            {/* Outer glow ring — smaller on mobile */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div
-                className="w-[460px] h-[460px] rounded-full opacity-30 blur-3xl"
+                className="w-[280px] sm:w-[360px] lg:w-[460px] h-[280px] sm:h-[360px] lg:h-[460px] rounded-full opacity-30 blur-3xl"
                 style={{
                   background: "radial-gradient(circle, rgba(124,92,255,0.2), rgba(59,201,255,0.1), transparent 70%)",
                 }}
               />
             </div>
 
-            {/* Inner accent ring */}
+            {/* Inner accent ring — smaller on mobile */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div
-                className="w-[420px] h-[420px] rounded-full opacity-20 blur-2xl"
+                className="w-[250px] sm:w-[330px] lg:w-[420px] h-[250px] sm:h-[330px] lg:h-[420px] rounded-full opacity-20 blur-2xl"
                 style={{
                   background: "conic-gradient(from 0deg, rgba(124,92,255,0.15), rgba(59,201,255,0.1), rgba(124,92,255,0.05), rgba(59,201,255,0.1), rgba(124,92,255,0.15))",
                   animation: "spin 8s linear infinite",
@@ -198,8 +198,8 @@ export function HeroSection() {
               />
             </div>
 
-            {/* Portrait */}
-            <div className="relative z-10 max-w-[380px] lg:max-w-[420px]">
+            {/* Portrait — responsive sizing */}
+            <div className="relative z-10 max-w-[250px] sm:max-w-[340px] lg:max-w-[420px]">
               <HeroPortrait variant="hero" />
             </div>
           </motion.div>

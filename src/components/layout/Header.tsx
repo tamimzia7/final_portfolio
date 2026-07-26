@@ -186,7 +186,7 @@ export function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden"
               onClick={handleOverlayClick}
               aria-hidden="true"
             />
@@ -197,7 +197,7 @@ export function Header() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] z-50 md:hidden flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] z-[70] md:hidden flex flex-col"
               style={{
                 background: "rgba(10,10,10,0.95)",
                 backdropFilter: "blur(40px)",
