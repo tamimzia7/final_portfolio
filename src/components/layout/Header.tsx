@@ -211,8 +211,13 @@ export function Header() {
               exit="exit"
               onTouchStart={handlePanelTouchStart}
               onTouchEnd={handlePanelTouchEnd}
-              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] z-[9999] md:hidden flex flex-col"
               style={{
+                position: "fixed",
+                top: 0,
+                right: 0,
+                height: "100vh",
+                width: "min(85vw, 380px)",
+                zIndex: 9999,
                 background: "rgba(10,10,10,0.95)",
                 backdropFilter: "blur(40px)",
                 WebkitBackdropFilter: "blur(40px)",
