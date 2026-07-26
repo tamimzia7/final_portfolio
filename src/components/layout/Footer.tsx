@@ -5,7 +5,7 @@ export function Footer() {
         <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} Tamim Zia. All rights reserved.</p>
         <div className="flex items-center gap-6">
           {[
-            { label: "GitHub", url: "https://github.com/tamimzia" },
+            { label: "GitHub", url: "https://github.com/tamimzia7" },
             { label: "LinkedIn", url: "https://linkedin.com/in/tamimzia" },
             { label: "Facebook", url: "https://facebook.com/tamimzia" }
           ].map((l) => (

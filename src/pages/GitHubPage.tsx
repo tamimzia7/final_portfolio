@@ -48,7 +48,7 @@ export default function GitHubPage() {
                 As a Full Stack Developer, I use GitHub to build, manage and continuously improve Laravel-based applications, REST APIs and modern frontend projects.
               </p>
               <div className="hero-buttons flex flex-wrap gap-3 md:gap-4 pt-2">
-                <Button as="a" href="https://github.com/tamimzia">View GitHub</Button>
+                <Button as="a" href="https://github.com/tamimzia7">View GitHub</Button>
                 <Button variant="secondary" as="a" href="/projects">Explore Projects</Button>
                 <Button variant="ghost" as="a" href="./resume.pdf">Download Resume</Button>
               </div>
@@ -145,7 +145,7 @@ export default function GitHubPage() {
                   <p className="text-sm text-white/40 max-w-md mb-6">
                     I'm actively growing my open-source presence. Follow my journey, star my repositories, and let's collaborate on Laravel projects.
                   </p>
-                  <Button as="a" href="https://github.com/tamimzia">
+                  <Button as="a" href="https://github.com/tamimzia7">
                     Follow on GitHub &rarr;
                   </Button>
                 </div>

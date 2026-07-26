@@ -67,7 +67,7 @@ export default function ContactPage() {
                   <h3 className="text-sm font-semibold text-white/90 mb-3">Social Links</h3>
                   <div className="flex flex-wrap gap-3">
                     {["GitHub", "LinkedIn", "Facebook", "Twitter"].map((s) => (
-                      <a key={s} href={`https://${s.toLowerCase()}.com/tamimzia`} target="_blank" rel="noopener noreferrer"
+                      <a key={s} href={`https://${s.toLowerCase()}.com/${s === "GitHub" ? "tamimzia7" : "tamimzia"}`} target="_blank" rel="noopener noreferrer"
                         className="text-xs px-3 py-2 glass rounded-full text-white/40 hover:text-accent transition-colors">{s}</a>
                     ))}
                   </div>
