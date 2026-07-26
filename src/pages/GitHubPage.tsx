@@ -51,7 +51,7 @@ export default function GitHubPage() {
               <div className="hero-buttons flex flex-wrap gap-3 md:gap-4 pt-2">
                 <Button as="a" href="https://github.com/tamimzia7">View GitHub</Button>
                 <Button variant="secondary" as="a" href="/projects">Explore Projects</Button>
-                <Button variant="ghost" as="a" href="./resume.pdf">Download Resume</Button>
+                <Button variant="ghost" as="a" href="./tamimzia.pdf">Download Resume</Button>
               </div>
             </div>
             <div className="hidden lg:flex justify-center items-center">

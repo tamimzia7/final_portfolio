@@ -17,7 +17,7 @@ const faqs = [
 ];
 
 const contactInfo = [
-  { label: "Email", value: "tamim@example.com" },
+  { label: "Email", value: "tamimweb27@gmail.com" },
   { label: "Location", value: "Remote / Worldwide" },
   { label: "Availability", value: "Open to opportunities" },
   { label: "Response Time", value: "Within 24 hours" },

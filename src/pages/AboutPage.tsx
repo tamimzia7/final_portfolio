@@ -214,7 +214,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Build Something Together</h2>
             <p className="text-white/40 mb-6">I'm available for Laravel development, full-stack projects, and technical consulting.</p>
             <div className="flex justify-center gap-4">
-              <Button as="a" href="./resume.pdf">Download Resume</Button>
+              <Button as="a" href="./tamimzia.pdf">Download Resume</Button>
               <Button variant="secondary" as="a" href="/contact">Contact Me</Button>
             </div>
           </GlassCard>

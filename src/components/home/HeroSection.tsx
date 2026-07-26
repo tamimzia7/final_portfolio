@@ -166,7 +166,7 @@ export function HeroSection() {
                   </span>
                 </Button>
               </Link>
-              <Button variant="secondary" as="a" href="./resume.pdf">Download Resume</Button>
+              <Button variant="secondary" as="a" href="./tamimzia.pdf">Download Resume</Button>
               <Link to="/contact"><Button variant="ghost">Contact Me</Button></Link>
             </motion.div>
           </motion.div>

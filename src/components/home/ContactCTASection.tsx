@@ -152,7 +152,7 @@ export function ContactCTASection() {
                     </span>
                   </Button>
                 </Link>
-                <Button variant="secondary" as="a" href="./resume.pdf" className="text-base px-8 py-3.5">
+                <Button variant="secondary" as="a" href="./tamimzia.pdf" className="text-base px-8 py-3.5">
                   Download Resume
                 </Button>
                 <Link to="/contact">
