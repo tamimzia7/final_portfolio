@@ -138,10 +138,7 @@ export function ExperienceTimelineSection() {
             }}
           />
 
-          <div className="space-y-6 md:space-y-8">
-            {journeyMilestones.map((m, i) => {
-              const isLast = i === journeyMilestones.length - 1;
-              return (
+          <div className="space-y-6 md:space-y-8">              {journeyMilestones.map((m, i) => (
                 <div key={m.title} className="relative pl-16 md:pl-20">
                   {/* Dot indicator */}
                   <div
@@ -220,21 +217,8 @@ export function ExperienceTimelineSection() {
                     </motion.div>
                   </div>
 
-                  {/* Connector line to next milestone */}
-                  {!isLast && (
-                    <div
-                      className="absolute left-[25px]"
-                      style={{
-                        top: "28px",
-                        bottom: "-28px",
-                        width: "2px",
-                        background: `linear-gradient(to bottom, ${m.accent}33, transparent)`,
-                      }}
-                    />
-                  )}
                 </div>
-              );
-            })}
+              ))}
           </div>
         </div>
 

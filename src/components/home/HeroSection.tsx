@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { motion } from "framer-motion";
 import { Button } from "@/components/shared/Button";
+import { HeroPortrait } from "@/components/shared/HeroPortrait";
 import { HomeScene } from "@/components/three/HomeScene";
 
 const techStack = [
@@ -11,10 +12,9 @@ const techStack = [
   { label: "React", color: "text-[#61DAFB]", border: "border-[#61DAFB]/20", bg: "bg-[#61DAFB]/10" },
   { label: "TypeScript", color: "text-[#3178C6]", border: "border-[#3178C6]/20", bg: "bg-[#3178C6]/10" },
   { label: "MySQL", color: "text-[#4479A1]", border: "border-[#4479A1]/20", bg: "bg-[#4479A1]/10" },
-  { label: "Three.js", color: "text-[#000000]", border: "border-white/20", bg: "bg-white/10" },
+  { label: "Three.js", color: "text-white/60", border: "border-white/20", bg: "bg-white/10" },
 ];
 
-// Staggered text reveal variants
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -44,7 +44,6 @@ export function HeroSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Floating tech badges animation
       const badges = badgeRef.current?.querySelectorAll(".tech-badge");
       if (badges) {
         badges.forEach((badge, i) => {
@@ -65,10 +64,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section
-      ref={ref}
-      className="relative min-h-screen flex items-center overflow-hidden"
-    >
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
       <HomeScene />
 
       {/* Ambient glow orbs */}
@@ -89,11 +85,7 @@ export function HeroSection() {
             className="space-y-8"
           >
             {/* Floating tech badges */}
-            <motion.div
-              ref={badgeRef}
-              variants={item}
-              className="flex flex-wrap gap-2.5"
-            >
+            <motion.div ref={badgeRef} variants={item} className="flex flex-wrap gap-2.5">
               {techStack.map((tech) => (
                 <span
                   key={tech.label}
@@ -115,21 +107,25 @@ export function HeroSection() {
                 Tamim Zia
               </motion.span>
 
-              {/* Cinematic role headline */}
-              <motion.div variants={item} className="overflow-hidden">
-                <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-black leading-[0.95] tracking-tight">
+              {/* Cinematic role headline — fixed overflow with clamp() */}
+              <motion.div variants={item}>
+                <h1
+                  className="font-black leading-[1.05] tracking-tight"
+                  style={{
+                    fontSize: "clamp(2.5rem, 10vw, 8rem)",
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                  }}
+                >
                   <span className="block text-white">FULL</span>
                   <span className="block text-gradient">STACK</span>
-                  <span className="block text-white/90">DEVELOPER</span>
+                  <span className="block text-white/90 break-words">DEVELOPER</span>
                 </h1>
               </motion.div>
             </div>
 
-            {/* Tagline with word reveal */}
-            <motion.div
-              variants={item}
-              className="overflow-hidden"
-            >
+            {/* Tagline */}
+            <motion.div variants={item}>
               <p className="text-lg md:text-xl lg:text-2xl font-light tracking-wide"
                 style={{ color: "rgba(255,255,255,0.55)" }}
               >
@@ -149,10 +145,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* Technology divider */}
-            <motion.div
-              variants={item}
-              className="flex items-center gap-4 py-2"
-            >
+            <motion.div variants={item} className="flex items-center gap-4 py-2">
               <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(124,92,255,0.3), transparent)" }} />
               <span className="text-xs font-mono tracking-[0.2em] uppercase" style={{ color: "rgba(255,255,255,0.25)" }}>
                 Laravel • React • AI • 3D
@@ -161,10 +154,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={item}
-              className="flex flex-wrap gap-3 md:gap-4 pt-2"
-            >
+            <motion.div variants={item} className="flex flex-wrap gap-3 md:gap-4 pt-2">
               <Link to="/projects">
                 <Button>
                   <span className="flex items-center gap-2">
@@ -176,24 +166,43 @@ export function HeroSection() {
                 </Button>
               </Link>
               <Button variant="secondary" as="a" href="./resume.pdf">Download Resume</Button>
-              <Link to="/contact">
-                <Button variant="ghost">Contact Me</Button>
-              </Link>
+              <Link to="/contact"><Button variant="ghost">Contact Me</Button></Link>
             </motion.div>
           </motion.div>
 
-          {/* Right: Portrait (unchanged) */}
-          <div className="hero-portrait hidden lg:flex justify-center items-center">
-            <div className="relative" style={{ transform: "translateZ(50px)" }}>
+          {/* Right: Profile Image with 3D glow and floating animation */}
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            className="hidden lg:flex justify-center items-center relative"
+          >
+            {/* Outer glow ring */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div
-                className="absolute inset-0 rounded-full opacity-60 blur-3xl"
+                className="w-[460px] h-[460px] rounded-full opacity-30 blur-3xl"
                 style={{
-                  background: "radial-gradient(circle, rgba(124,92,255,0.15), transparent 70%)",
-                  transform: "scale(1.5) translateY(-10%)",
+                  background: "radial-gradient(circle, rgba(124,92,255,0.2), rgba(59,201,255,0.1), transparent 70%)",
                 }}
               />
             </div>
-          </div>
+
+            {/* Inner accent ring */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div
+                className="w-[420px] h-[420px] rounded-full opacity-20 blur-2xl"
+                style={{
+                  background: "conic-gradient(from 0deg, rgba(124,92,255,0.15), rgba(59,201,255,0.1), rgba(124,92,255,0.05), rgba(59,201,255,0.1), rgba(124,92,255,0.15))",
+                  animation: "spin 8s linear infinite",
+                }}
+              />
+            </div>
+
+            {/* Portrait */}
+            <div className="relative z-10 max-w-[380px] lg:max-w-[420px]">
+              <HeroPortrait variant="hero" />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
