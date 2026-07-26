@@ -1,10 +1,11 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { motion } from "framer-motion";
 import { Button } from "@/components/shared/Button";
 import { HeroPortrait } from "@/components/shared/HeroPortrait";
-import { HomeScene } from "@/components/three/HomeScene";
+
+const HomeScene = React.lazy(() => import("@/components/three/HomeScene").then(m => ({ default: m.HomeScene })));
 
 const techStack = [
   { label: "Laravel", color: "text-laravel", border: "border-laravel/20", bg: "bg-laravel/10" },
@@ -65,7 +66,7 @@ export function HeroSection() {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
-      <HomeScene />
+      <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><HomeScene /></Suspense>
 
       {/* Ambient glow orbs */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full opacity-20 blur-[120px] pointer-events-none"

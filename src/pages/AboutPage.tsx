@@ -1,11 +1,13 @@
+import React, { Suspense } from "react";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { Badge } from "@/components/shared/Badge";
 import { Button } from "@/components/shared/Button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { AboutScene } from "@/components/three/AboutScene";
 import { HeroPortrait } from "@/components/shared/HeroPortrait";
+
+const AboutScene = React.lazy(() => import("@/components/three/AboutScene").then(m => ({ default: m.AboutScene })));
 
 const values = [
   { title: "Clean Architecture", desc: "I believe well-structured code is the foundation of maintainable applications. Every Laravel project follows service-repository patterns, SOLID principles, and thoughtful separation of concerns." },
@@ -38,7 +40,7 @@ export default function AboutPage() {
   return (
     <PageTransition direction="up">
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <AboutScene />
+        <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><AboutScene /></Suspense>
         <div className="max-width-container w-full pt-32 pb-20">
           <ScrollReveal>
             <Badge className="mb-6">About Me</Badge>

@@ -1,9 +1,11 @@
+import React, { Suspense } from "react";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { Badge } from "@/components/shared/Badge";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ExperienceScene } from "@/components/three/ExperienceScene";
+
+const ExperienceScene = React.lazy(() => import("@/components/three/ExperienceScene").then(m => ({ default: m.ExperienceScene })));
 
 const timeline = [
   { period: "2021", title: "Started Learning Web Development", company: "Self-Taught", type: "education", description: "Began with HTML, CSS, JavaScript, and PHP. Built my first dynamic website and fell in love with backend development." },
@@ -20,7 +22,7 @@ export default function ExperiencePage() {
   return (
     <PageTransition direction="up">
       <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <ExperienceScene />
+        <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><ExperienceScene /></Suspense>
         <div className="max-width-container w-full pt-32 pb-20">
           <ScrollReveal>
             <Badge className="mb-6">Career Timeline</Badge>

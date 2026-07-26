@@ -1,9 +1,11 @@
+import React, { Suspense } from "react";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { GlassCard } from "@/components/shared/GlassCard";
 import { Badge } from "@/components/shared/Badge";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { SkillsScene } from "@/components/three/SkillsScene";
+
+const SkillsScene = React.lazy(() => import("@/components/three/SkillsScene").then(m => ({ default: m.SkillsScene })));
 
 const backendSkills = [
   { name: "Laravel", level: 95, projects: "12+", desc: "Full-stack Laravel applications — REST APIs, auth, queues, admin panels, and business systems." },
@@ -47,7 +49,7 @@ export default function SkillsPage() {
   return (
     <PageTransition direction="up">
       <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <SkillsScene />
+        <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><SkillsScene /></Suspense>
         <div className="max-width-container w-full pt-32 pb-20">
           <ScrollReveal>
             <Badge className="mb-6">Technical Skills</Badge>

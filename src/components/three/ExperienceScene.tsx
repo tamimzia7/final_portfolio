@@ -39,7 +39,7 @@ function TimelinePath() {
 
 export function ExperienceScene() {
   return (
-    <div className="absolute inset-0 -z-10 opacity-40">
+    <div className="absolute inset-0 -z-10 opacity-40 pointer-events-none">
       <Canvas camera={{ position: [0, 0, 5], fov: 55 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.2} />

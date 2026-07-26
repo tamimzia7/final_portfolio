@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
@@ -6,9 +6,10 @@ import { GlassCard } from "@/components/shared/GlassCard";
 import { Badge } from "@/components/shared/Badge";
 import { Button } from "@/components/shared/Button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ProjectsScene } from "@/components/three/ProjectsScene";
 import { projects, categories } from "@/data/projects";
 import { cn } from "@/utils/cn";
+
+const ProjectsScene = React.lazy(() => import("@/components/three/ProjectsScene").then(m => ({ default: m.ProjectsScene })));
 
 const categoryOrder: Record<string, number> = {
   Laravel: 0,
@@ -37,7 +38,7 @@ export default function ProjectsPage() {
   return (
     <PageTransition direction="up">
       <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <ProjectsScene />
+        <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><ProjectsScene /></Suspense>
         <div className="max-width-container w-full pt-32 pb-20">
           <ScrollReveal>
             <Badge className="mb-6">Portfolio</Badge>

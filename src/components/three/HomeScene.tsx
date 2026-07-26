@@ -106,7 +106,7 @@ export function HomeScene() {
   const mobile = isMobile;
 
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className="absolute inset-0 -z-10 pointer-events-none">
       <Canvas camera={{ position: [0, 0, 4], fov: 45 }} gl={mobile ? { powerPreference: "low-power", antialias: false } : undefined}>
         <Suspense fallback={null}>
           <ambientLight intensity={mobile ? 0.3 : 0.5} />

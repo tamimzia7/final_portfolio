@@ -1,13 +1,15 @@
+import React, { Suspense } from "react";
 import { Link } from "react-router-dom";
 import { PageTransition } from "@/components/animations/PageTransition";
-import { NotFoundScene } from "@/components/three/NotFoundScene";
 import { Button } from "@/components/shared/Button";
+
+const NotFoundScene = React.lazy(() => import("@/components/three/NotFoundScene").then(m => ({ default: m.NotFoundScene })));
 
 export default function NotFoundPage() {
   return (
     <PageTransition>
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <NotFoundScene />
+        <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><NotFoundScene /></Suspense>
         <div className="max-width-container text-center relative z-10">
           <h1 className="text-[12rem] md:text-[20rem] font-bold leading-none text-gradient opacity-20 select-none">
             404

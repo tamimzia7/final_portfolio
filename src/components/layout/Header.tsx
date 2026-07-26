@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/utils/cn";
@@ -89,10 +89,22 @@ export function Header() {
   // Close on clicking overlay
   const handleOverlayClick = () => setMobileOpen(false);
 
+  // Swipe-to-close gesture for mobile panel
+  const touchStartX = useRef(0);
+
+  const handlePanelTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handlePanelTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 80) setMobileOpen(false);
+  };
+
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-[9997] transition-all duration-500",
         scrolled
           ? "glass shadow-[0_1px_0_rgba(255,255,255,0.04)]"
           : "bg-transparent"
@@ -186,7 +198,7 @@ export function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998] md:hidden"
               onClick={handleOverlayClick}
               aria-hidden="true"
             />
@@ -197,7 +209,9 @@ export function Header() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] z-[70] md:hidden flex flex-col"
+              onTouchStart={handlePanelTouchStart}
+              onTouchEnd={handlePanelTouchEnd}
+              className="fixed top-0 right-0 bottom-0 w-[280px] max-w-[85vw] z-[9999] md:hidden flex flex-col"
               style={{
                 background: "rgba(10,10,10,0.95)",
                 backdropFilter: "blur(40px)",

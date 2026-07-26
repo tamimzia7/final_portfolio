@@ -180,7 +180,7 @@ function SecondRing() {
 
 export function GitHubScene() {
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className="absolute inset-0 -z-10 pointer-events-none">
       <Canvas camera={{ position: [0, 0.8, 4.5], fov: 50 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.2} />

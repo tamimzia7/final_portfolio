@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense } from "react";
 import gsap from "gsap";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Badge } from "@/components/shared/Badge";
 import { Button } from "@/components/shared/Button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { GitHubScene } from "@/components/three/GitHubScene";
+
+const GitHubScene = React.lazy(() => import("@/components/three/GitHubScene").then(m => ({ default: m.GitHubScene })));
 import { GitHubStats } from "@/components/github/GitHubStats";
 import { ContributionGraph } from "@/components/github/ContributionGraph";
 import { LaravelExpertiseGrid } from "@/components/github/LaravelExpertiseGrid";
@@ -32,7 +33,7 @@ export default function GitHubPage() {
   return (
     <PageTransition direction="up">
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
-        <GitHubScene />
+        <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><GitHubScene /></Suspense>
         <div className="max-width-container w-full pt-36 pb-20">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-8">

@@ -56,7 +56,7 @@ function Stars() {
 
 export function NotFoundScene() {
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className="absolute inset-0 -z-10 pointer-events-none">
       <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.5} />
