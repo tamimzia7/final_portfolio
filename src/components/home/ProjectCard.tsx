@@ -11,6 +11,7 @@ interface ProjectCardProps {
   featured?: boolean;
   imageSrc: string;
   imageAspectRatio?: string;
+  screenshots?: string[];
 }
 
 const colorSchemes: Record<string, { primary: string; primaryLight: string; primaryDark: string; glow: string; border: string; tagBg: string; tagText: string; gradient: string }> = {
@@ -69,9 +70,10 @@ function getScheme(title: string) {
   };
 }
 
-export function ProjectCard({ title, description, tags, slug, featured, imageSrc, imageAspectRatio = "16/11" }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, slug, featured, imageSrc, imageAspectRatio = "16/11", screenshots }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeScreenshot, setActiveScreenshot] = useState(0);
   // Detect touch device immediately (no need for state/effect since matchMedia is synchronous)
   const isTouchDevice = useRef(
     typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
@@ -157,10 +159,10 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
         >
           {/* Image Container — 65-70% of the card */}
           <div className="relative overflow-hidden" style={{ aspectRatio: imageAspectRatio }}>
-            {/* Image */}
+            {/* Main Preview Image */}
             <img
-              src={imageSrc}
-              alt={title}
+              src={screenshots ? screenshots[activeScreenshot] : imageSrc}
+              alt={screenshots ? `${title} screenshot ${activeScreenshot + 1}` : title}
               loading="lazy"
               className="w-full h-full object-cover transition-all duration-700"
               style={{
@@ -218,6 +220,37 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
               />
             )}
           </div>
+
+          {/* Screenshot Thumbnails — shown when multiple screenshots available */}
+          {screenshots && screenshots.length > 1 && (
+            <div className="flex gap-2 px-6 md:px-7 lg:px-8 pt-4 pb-2 relative z-10">
+              {screenshots.map((src, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActiveScreenshot(idx);
+                  }}
+                  className="relative overflow-hidden rounded-lg border-2 transition-all duration-300"
+                  style={{
+                    width: 56,
+                    height: 36,
+                    borderColor: idx === activeScreenshot ? scheme.primary : "rgba(255,255,255,0.08)",
+                    opacity: idx === activeScreenshot ? 1 : 0.5,
+                    boxShadow: idx === activeScreenshot ? `0 0 12px ${scheme.glow}` : "none",
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt={`${title} thumbnail ${idx + 1}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Content Section */}
           <div className="p-6 md:p-7 lg:p-8 flex flex-col flex-1 relative z-10" style={{ transform: "translateZ(30px)" }}>

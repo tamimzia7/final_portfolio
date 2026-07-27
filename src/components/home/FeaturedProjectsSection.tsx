@@ -6,10 +6,16 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Button } from "@/components/shared/Button";
 import { ProjectCard } from "@/components/home/ProjectCard";
-import boutiqueEcommerce from "@/assets/images/projects/boutique-ecommerce.svg";
-import auraCollection from "@/assets/images/projects/aura-collection.svg";
+import bp1 from "@/assets/images/projects/bp1.png";
+import bp2 from "@/assets/images/projects/bp2.png";
+import bp3 from "@/assets/images/projects/bp3.png";
+import ap1 from "@/assets/images/projects/ap1.png";
+import ap2 from "@/assets/images/projects/ap2.png";
+import ap3 from "@/assets/images/projects/ap3.png";
+import mp1 from "@/assets/images/projects/mp1.png";
+import mp2 from "@/assets/images/projects/mp2.png";
+import mp3 from "@/assets/images/projects/mp3.png";
 import visicore from "@/assets/images/projects/visicore.svg";
-import mealManagement from "@/assets/images/projects/meal-management.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,7 +27,8 @@ const featuredProjects = [
     tags: ["Laravel", "PHP", "MySQL", "Blade", "JavaScript"],
     slug: "boutique-ecommerce",
     featured: true,
-    image: boutiqueEcommerce,
+    image: bp1,
+    screenshots: [bp1, bp2, bp3],
   },
   {
     title: "AURA Collection",
@@ -30,9 +37,11 @@ const featuredProjects = [
     tags: ["Laravel", "PHP", "MySQL", "TailwindCSS"],
     slug: "aura-collection",
     featured: true,
-    image: auraCollection,
+    image: ap2,
+    screenshots: [ap2, ap1, ap3],
   },
   {
+    // @todo Replace with vp1, vp2, vp3 screenshots when provided
     title: "VisiCore",
     description:
       "Smart Field Visit & Employee Management System with GPS tracking, attendance, visit evidence, meeting notes, and reporting dashboard.",
@@ -46,7 +55,8 @@ const featuredProjects = [
       "Company meal management platform with role-based authentication, meal tracking, monthly reports, and cost analysis dashboard.",
     tags: ["Laravel", "PHP", "MySQL"],
     slug: "meal-management",
-    image: mealManagement,
+    image: mp1,
+    screenshots: [mp1, mp2, mp3],
   },
 ];
 
@@ -111,6 +121,7 @@ export function FeaturedProjectsSection() {
               slug={featuredProjects[0].slug}
               featured={featuredProjects[0].featured}
               imageSrc={featuredProjects[0].image}
+              screenshots={featuredProjects[0].screenshots}
               imageAspectRatio="4/3"
             />
           </div>
@@ -122,6 +133,7 @@ export function FeaturedProjectsSection() {
               slug={featuredProjects[1].slug}
               featured={featuredProjects[1].featured}
               imageSrc={featuredProjects[1].image}
+              screenshots={featuredProjects[1].screenshots}
             />
           </div>
 
@@ -143,6 +155,7 @@ export function FeaturedProjectsSection() {
               tags={featuredProjects[3].tags}
               slug={featuredProjects[3].slug}
               imageSrc={featuredProjects[3].image}
+              screenshots={featuredProjects[3].screenshots}
             />
           </div>
         </div>
