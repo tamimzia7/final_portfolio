@@ -421,14 +421,14 @@ const GALLERY = [
     src: as2,
     label: "Verified Service Providers",
     alt: "ASTHA Service Providers",
-    description: "Browse verified professionals with ratings, experience, pricing, availability, and instant booking options.",
+    description: "Browse verified service providers with ratings, experience, pricing, availability, and instant booking.",
     badges: ["Verified", "Booking", "Reviews"],
   },
   {
     src: as3,
     label: "Advanced Search & Filtering",
     alt: "ASTHA Advanced Search & Filters",
-    description: "Powerful filtering system for category, district, experience, ratings, and provider verification.",
+    description: "Powerful search and filtering by category, district, experience, ratings, and provider verification.",
     badges: ["Filters", "Location", "Smart Search"],
   },
 ];
