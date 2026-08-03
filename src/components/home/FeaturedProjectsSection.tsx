@@ -16,10 +16,24 @@ import mp1 from "@/assets/images/projects/mp1.png";
 import mp2 from "@/assets/images/projects/mp2.png";
 import mp3 from "@/assets/images/projects/mp3.png";
 import visicore from "@/assets/images/projects/visicore.svg";
+import astha from "@/assets/images/projects/astha.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const featuredProjects = [
+  {
+    title: "ASTHA (আস্থা)",
+    description:
+      "A comprehensive home and business service marketplace platform that connects customers with verified service providers across Bangladesh.",
+    tags: ["Laravel 12", "PHP 8.3", "MySQL", "REST API", "Tailwind CSS", "JavaScript"],
+    slug: "astha",
+    featured: true,
+    premium: true,
+    subtitle: "Trusted Home Service Marketplace",
+    status: "Active Development",
+    badgeLabel: "Featured Project",
+    image: astha,
+  },
   {
     title: "Boutique E-commerce Platform",
     description:
@@ -120,6 +134,10 @@ export function FeaturedProjectsSection() {
               tags={featuredProjects[0].tags}
               slug={featuredProjects[0].slug}
               featured={featuredProjects[0].featured}
+              premium={featuredProjects[0].premium}
+              subtitle={featuredProjects[0].subtitle}
+              status={featuredProjects[0].status}
+              badgeLabel={featuredProjects[0].badgeLabel}
               imageSrc={featuredProjects[0].image}
               screenshots={featuredProjects[0].screenshots}
               imageAspectRatio="4/3"
@@ -191,7 +209,7 @@ export function FeaturedProjectsSection() {
                 </Button>
               </Link>
               <span className="text-[11px] font-medium tracking-wider" style={{ color: "rgba(255,255,255,0.25)" }}>
-                Total: 7 Projects
+                Total: 9 Projects
               </span>
             </div>
           </div>

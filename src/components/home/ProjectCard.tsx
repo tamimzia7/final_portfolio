@@ -9,6 +9,10 @@ interface ProjectCardProps {
   tags: string[];
   slug: string;
   featured?: boolean;
+  premium?: boolean;
+  subtitle?: string;
+  status?: string;
+  badgeLabel?: string;
   imageSrc: string;
   imageAspectRatio?: string;
   screenshots?: string[];
@@ -55,6 +59,16 @@ const colorSchemes: Record<string, { primary: string; primaryLight: string; prim
     tagText: "#22C55E",
     gradient: "from-[#22C55E] via-[#16A34A] to-[#15803D]",
   },
+  "ASTHA (আস্থা)": {
+    primary: "#8B5CF6",
+    primaryLight: "rgba(139,92,246,0.14)",
+    primaryDark: "rgba(139,92,246,0.09)",
+    glow: "rgba(139,92,246,0.22)",
+    border: "rgba(139,92,246,0.3)",
+    tagBg: "rgba(139,92,246,0.15)",
+    tagText: "#A78BFA",
+    gradient: "from-[#8B5CF6] via-[#6366F1] to-[#3BC9FF]",
+  },
 };
 
 function getScheme(title: string) {
@@ -70,7 +84,7 @@ function getScheme(title: string) {
   };
 }
 
-export function ProjectCard({ title, description, tags, slug, featured, imageSrc, imageAspectRatio = "16/11", screenshots }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, slug, featured, premium, subtitle, status = "Completed", badgeLabel = "Featured", imageSrc, imageAspectRatio = "16/11", screenshots }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [activeScreenshot, setActiveScreenshot] = useState(0);
@@ -144,16 +158,20 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
           className={cn(
             "relative overflow-hidden rounded-3xl transition-all duration-700 h-full flex flex-col",
             "border",
-            isHovered ? "scale-[1.02]" : "scale-100",
+            premium ? (isHovered ? "scale-[1.03]" : "scale-100") : isHovered ? "scale-[1.02]" : "scale-100",
           )}
           style={{
-            borderColor: isHovered ? scheme.border : "rgba(255,255,255,0.06)",
+            borderColor: isHovered || premium ? scheme.border : "rgba(255,255,255,0.06)",
             boxShadow: isHovered
-              ? `0 30px 80px -20px ${scheme.glow}, 0 0 0 1px ${scheme.border}, inset 0 0 60px ${scheme.primaryLight}`
-              : "0 0 0 1px rgba(255,255,255,0.06)",
+              ? `0 40px 90px -20px ${scheme.glow}, 0 0 0 1px ${scheme.border}, inset 0 0 60px ${scheme.primaryLight}`
+              : premium
+                ? `0 0 45px -12px ${scheme.glow}, 0 0 0 1px ${scheme.border}`
+                : "0 0 0 1px rgba(255,255,255,0.06)",
             background: isHovered
               ? `linear-gradient(180deg, ${scheme.primaryDark} 0%, rgba(5,5,5,0.95) 100%)`
-              : "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(5,5,5,0.8) 100%)",
+              : premium
+                ? `linear-gradient(180deg, ${scheme.primaryDark} 0%, rgba(5,5,5,0.8) 100%)`
+                : "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(5,5,5,0.8) 100%)",
             transition: "all 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
@@ -205,7 +223,7 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
                   <svg width="10" height="10" viewBox="0 0 24 24" fill={scheme.primary}>
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
-                  Featured
+                  {badgeLabel}
                 </span>
               </div>
             )}
@@ -262,11 +280,17 @@ export function ProjectCard({ title, description, tags, slug, featured, imageSrc
               {title}
             </h3>
 
+            {subtitle && (
+              <p className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: scheme.primary }}>
+                {subtitle}
+              </p>
+            )}
+
             {/* Status badge */}
             <div className="flex items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: scheme.primary }} />
               <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
-                Completed
+                {status}
               </span>
             </div>
 

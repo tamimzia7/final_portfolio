@@ -20,6 +20,7 @@ import boutiqueSvg from "@/assets/images/projects/boutique-ecommerce.svg";
 import auraSvg from "@/assets/images/projects/aura-collection.svg";
 import visicoreSvg from "@/assets/images/projects/visicore.svg";
 import mealSvg from "@/assets/images/projects/meal-management.svg";
+import asthaSvg from "@/assets/images/projects/astha.svg";
 
 const ProjectsScene = React.lazy(() => import("@/components/three/ProjectsScene").then(m => ({ default: m.ProjectsScene })));
 
@@ -31,6 +32,27 @@ const projectConfigs: Record<string, {
   role?: string;
   status?: string;
 }> = {
+  "astha": {
+    images: [
+      { src: asthaSvg, alt: "ASTHA – Service Marketplace" },
+      { src: asthaSvg, alt: "ASTHA – Smart Booking" },
+      { src: asthaSvg, alt: "ASTHA – Admin Panel" },
+    ],
+    features: [
+      "Multi-role Authentication",
+      "Smart Service Booking",
+      "Live GPS Tracking",
+      "Real-time Notifications",
+      "Secure Online Payments",
+      "Ratings & Reviews",
+    ],
+    badges: [
+      { label: "Featured Project" },
+      { label: "Laravel Full Stack", color: "rgba(255,255,255,0.5)" },
+    ],
+    role: "Full Stack Developer",
+    status: "Active Development",
+  },
   "boutique-ecommerce": {
     images: [
       { src: bp1, alt: "Boutique E-Commerce – Homepage" },

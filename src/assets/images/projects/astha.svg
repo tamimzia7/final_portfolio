@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="asthaBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#05060f"/>
+      <stop offset="50%" stop-color="#0e0a22"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <linearGradient id="asthaAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="55%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#3BC9FF"/>
+    </linearGradient>
+    <linearGradient id="asthaCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(139,92,246,0.1)"/>
+      <stop offset="100%" stop-color="rgba(99,102,241,0.03)"/>
+    </linearGradient>
+    <linearGradient id="asthaGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(139,92,246,0.32)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#asthaBg)"/>
+
+  <!-- Topographic dots pattern -->
+  <g opacity="0.03">
+    <circle cx="50" cy="50" r="2" fill="white"/>
+    <circle cx="150" cy="80" r="2" fill="white"/>
+    <circle cx="250" cy="40" r="2" fill="white"/>
+    <circle cx="350" cy="90" r="2" fill="white"/>
+    <circle cx="450" cy="30" r="2" fill="white"/>
+    <circle cx="550" cy="70" r="2" fill="white"/>
+    <circle cx="650" cy="50" r="2" fill="white"/>
+    <circle cx="750" cy="85" r="2" fill="white"/>
+    <circle cx="100" cy="150" r="2" fill="white"/>
+    <circle cx="300" cy="130" r="2" fill="white"/>
+    <circle cx="500" cy="160" r="2" fill="white"/>
+    <circle cx="700" cy="140" r="2" fill="white"/>
+  </g>
+
+  <!-- Glow -->
+  <circle cx="400" cy="280" r="280" fill="url(#asthaGlow)" opacity="0.18"/>
+
+  <!-- Search bar -->
+  <rect x="60" y="50" width="680" height="56" rx="28" fill="rgba(139,92,246,0.06)" stroke="rgba(139,92,246,0.18)" stroke-width="1"/>
+  <circle cx="92" cy="78" r="12" fill="rgba(139,92,246,0.2)"/>
+  <circle cx="92" cy="78" r="5" fill="#8B5CF6"/>
+  <rect x="114" y="72" width="200" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+  <rect x="114" y="88" width="140" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="620" y="62" width="100" height="32" rx="16" fill="url(#asthaAccent)"/>
+  <text x="670" y="83" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="12" font-weight="700">Search</text>
+
+  <!-- Service category cards -->
+  <g>
+    <rect x="60" y="130" width="150" height="110" rx="14" fill="url(#asthaCard)" stroke="rgba(139,92,246,0.14)" stroke-width="1"/>
+    <circle cx="100" cy="160" r="14" fill="rgba(139,92,246,0.15)"/>
+    <rect x="94" y="154" width="12" height="12" rx="3" fill="#8B5CF6"/>
+    <rect x="80" y="185" width="110" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+    <rect x="80" y="201" width="80" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    <rect x="80" y="218" width="50" height="12" rx="6" fill="rgba(59,201,255,0.25)"/>
+
+    <rect x="225" y="130" width="150" height="110" rx="14" fill="url(#asthaCard)" stroke="rgba(139,92,246,0.14)" stroke-width="1"/>
+    <circle cx="265" cy="160" r="14" fill="rgba(99,102,241,0.15)"/>
+    <circle cx="265" cy="160" r="5" fill="#6366F1"/>
+    <rect x="245" y="185" width="110" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+    <rect x="245" y="201" width="80" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    <rect x="245" y="218" width="50" height="12" rx="6" fill="rgba(139,92,246,0.25)"/>
+
+    <rect x="390" y="130" width="150" height="110" rx="14" fill="url(#asthaCard)" stroke="rgba(139,92,246,0.14)" stroke-width="1"/>
+    <circle cx="430" cy="160" r="14" fill="rgba(139,92,246,0.15)"/>
+    <path d="M425 158l6 4 10-8" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <rect x="410" y="185" width="110" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+    <rect x="410" y="201" width="80" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+    <rect x="410" y="218" width="50" height="12" rx="6" fill="rgba(59,201,255,0.25)"/>
+  </g>
+
+  <!-- Provider profile card -->
+  <rect x="555" y="130" width="185" height="230" rx="16" fill="url(#asthaCard)" stroke="rgba(139,92,246,0.16)" stroke-width="1"/>
+  <circle cx="647" cy="165" r="18" fill="rgba(139,92,246,0.2)"/>
+  <circle cx="647" cy="165" r="8" fill="#8B5CF6"/>
+  <rect x="600" y="192" width="95" height="8" rx="4" fill="rgba(255,255,255,0.25)"/>
+  <rect x="625" y="206" width="45" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
+  <g>
+    <path d="M590 222h70" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+    <path d="M590 230h55" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <path d="M590 238h60" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+  </g>
+  <rect x="575" y="250" width="145" height="26" rx="13" fill="rgba(139,92,246,0.15)"/>
+  <text x="647" y="268" text-anchor="middle" fill="#A78BFA" font-family="Inter, sans-serif" font-size="11" font-weight="600">Verified Provider</text>
+  <rect x="575" y="286" width="145" height="34" rx="17" fill="rgba(59,201,255,0.15)" stroke="rgba(59,201,255,0.3)" stroke-width="1"/>
+  <text x="647" y="308" text-anchor="middle" fill="#3BC9FF" font-family="Inter, sans-serif" font-size="11" font-weight="700">Book Service</text>
+  <rect x="575" y="330" width="145" height="8" rx="4" fill="rgba(255,255,255,0.08)"/>
+  <rect x="575" y="345" width="110" height="6" rx="3" fill="rgba(255,255,255,0.05)"/>
+
+  <!-- Booking / chat panel -->
+  <rect x="60" y="260" width="470" height="100" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <rect x="80" y="278" width="200" height="8" rx="4" fill="rgba(255,255,255,0.2)"/>
+  <rect x="80" y="294" width="150" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="80" y="310" width="60" height="14" rx="7" fill="rgba(139,92,246,0.3)"/>
+  <rect x="148" y="310" width="80" height="14" rx="7" fill="rgba(59,201,255,0.2)"/>
+  <circle cx="500" cy="300" r="20" fill="rgba(59,201,255,0.12)" stroke="#3BC9FF" stroke-width="1"/>
+  <path d="M493 300h14M500 293v14" stroke="#3BC9FF" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Rating card -->
+  <rect x="60" y="380" width="220" height="180" rx="16" fill="url(#asthaCard)" stroke="rgba(139,92,246,0.12)" stroke-width="1"/>
+  <text x="170" y="425" text-anchor="middle" fill="#A78BFA" font-family="Inter, sans-serif" font-size="30" font-weight="700">4.9</text>
+  <g>
+    <path d="M130 440l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#8B5CF6"/>
+    <path d="M152 440l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#8B5CF6" opacity="0.8"/>
+    <path d="M174 440l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#8B5CF6" opacity="0.6"/>
+    <path d="M196 440l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#8B5CF6" opacity="0.4"/>
+    <path d="M218 440l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z" fill="#8B5CF6" opacity="0.2"/>
+  </g>
+  <rect x="100" y="475" width="140" height="8" rx="4" fill="rgba(255,255,255,0.15)"/>
+  <rect x="110" y="491" width="120" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+  <rect x="80" y="515" width="180" height="26" rx="13" fill="rgba(139,92,246,0.15)"/>
+  <text x="170" y="533" text-anchor="middle" fill="#A78BFA" font-family="Inter, sans-serif" font-size="11" font-weight="600">1,200+ Happy Customers</text>
+
+  <!-- Live GPS tracking card -->
+  <rect x="300" y="380" width="230" height="180" rx="16" fill="url(#asthaCard)" stroke="rgba(59,201,255,0.12)" stroke-width="1"/>
+  <g opacity="0.12" stroke="#3BC9FF" stroke-width="0.5">
+    <line x1="300" y1="420" x2="530" y2="420"/>
+    <line x1="300" y1="460" x2="530" y2="460"/>
+    <line x1="300" y1="500" x2="530" y2="500"/>
+    <line x1="360" y1="380" x2="360" y2="560"/>
+    <line x1="420" y1="380" x2="420" y2="560"/>
+    <line x1="480" y1="380" x2="480" y2="560"/>
+  </g>
+  <circle cx="415" cy="440" r="22" fill="rgba(59,201,255,0.14)" stroke="#3BC9FF" stroke-width="1.5"/>
+  <circle cx="415" cy="440" r="8" fill="#3BC9FF"/>
+  <circle cx="415" cy="440" r="3" fill="white"/>
+  <circle cx="460" cy="500" r="14" fill="rgba(59,201,255,0.1)" stroke="#3BC9FF" stroke-width="1" opacity="0.6"/>
+  <rect x="330" y="520" width="170" height="8" rx="4" fill="rgba(255,255,255,0.15)"/>
+  <rect x="350" y="536" width="130" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+
+  <!-- Payment card -->
+  <rect x="550" y="380" width="190" height="180" rx="16" fill="url(#asthaCard)" stroke="rgba(139,92,246,0.12)" stroke-width="1"/>
+  <rect x="570" y="398" width="150" height="36" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <rect x="582" y="408" width="50" height="8" rx="4" fill="rgba(255,255,255,0.25)"/>
+  <circle cx="700" cy="412" r="9" fill="none" stroke="#3BC9FF" stroke-width="2"/>
+  <circle cx="709" cy="412" r="9" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="570" y="446" width="150" height="8" rx="4" fill="rgba(255,255,255,0.15)"/>
+  <rect x="570" y="462" width="120" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+  <rect x="570" y="486" width="150" height="34" rx="17" fill="rgba(139,92,246,0.18)" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
+  <text x="645" y="508" text-anchor="middle" fill="#A78BFA" font-family="Inter, sans-serif" font-size="11" font-weight="700">Pay Securely</text>
+  <path d="M600 535h-8l-3 6 5 1-7 4 8 1-4 6 8-5 2 9 2-9 8 5-4-6 8-1-7-4 5-1z" fill="none" stroke="#3BC9FF" stroke-width="1" opacity="0.5"/>
+
+  <text x="400" y="590" text-anchor="middle" fill="rgba(139,92,246,0.35)" font-family="Inter, sans-serif" font-size="16" font-weight="700" letter-spacing="3">ASTHA</text>
+</svg>
