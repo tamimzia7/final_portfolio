@@ -1,11 +1,10 @@
-import React, { useRef, useEffect, Suspense } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { motion } from "framer-motion";
 import { Button } from "@/components/shared/Button";
 import { HeroPortrait } from "@/components/shared/HeroPortrait";
-
-const HomeScene = React.lazy(() => import("@/components/three/HomeScene").then(m => ({ default: m.HomeScene })));
+import { HeroBackground } from "@/components/home/HeroBackground";
 
 const techStack = [
   { label: "Laravel", color: "text-laravel", border: "border-laravel/20", bg: "bg-laravel/10" },
@@ -66,15 +65,7 @@ export function HeroSection() {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
-      <Suspense fallback={<div className="absolute inset-0 bg-[#050505]" />}><HomeScene /></Suspense>
-
-      {/* Ambient glow orbs */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full opacity-20 blur-[120px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(124,92,255,0.3), transparent 70%)" }}
-      />
-      <div className="absolute bottom-1/4 -right-32 w-[30rem] h-[30rem] rounded-full opacity-10 blur-[120px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(255,45,32,0.2), transparent 70%)" }}
-      />
+      <HeroBackground />
 
       <div className="max-width-container w-full pt-36 pb-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -108,19 +99,15 @@ export function HeroSection() {
                 Tamim Zia
               </motion.span>
 
-              {/* Cinematic role headline — fixed overflow with clamp() */}
+              {/* Cinematic role headline — sized to always fit the column so "DEVELOPER" never breaks */}
               <motion.div variants={item}>
                 <h1
                   className="font-black leading-[1.05] tracking-tight"
-                  style={{
-                    fontSize: "clamp(2.5rem, 10vw, 8rem)",
-                    wordBreak: "break-word",
-                    overflowWrap: "break-word",
-                  }}
+                  style={{ fontSize: "clamp(2.5rem, 6.5vw, 6.25rem)" }}
                 >
-                  <span className="block text-white">FULL</span>
-                  <span className="block text-gradient">STACK</span>
-                  <span className="block text-white/90 break-words">DEVELOPER</span>
+                  <span className="block text-white" style={{ whiteSpace: "nowrap" }}>FULL</span>
+                  <span className="block text-gradient" style={{ whiteSpace: "nowrap" }}>STACK</span>
+                  <span className="block text-white/90" style={{ whiteSpace: "nowrap" }}>DEVELOPER</span>
                 </h1>
               </motion.div>
             </div>
@@ -183,7 +170,17 @@ export function HeroSection() {
               <div
                 className="w-[280px] sm:w-[360px] lg:w-[460px] h-[280px] sm:h-[360px] lg:h-[460px] rounded-full opacity-30 blur-3xl"
                 style={{
-                  background: "radial-gradient(circle, rgba(124,92,255,0.2), rgba(59,201,255,0.1), transparent 70%)",
+                  background: "radial-gradient(circle, rgba(124,92,255,0.22), rgba(59,201,255,0.14), transparent 70%)",
+                }}
+              />
+            </div>
+
+            {/* Soft blue radial glow behind the photo */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div
+                className="w-[260px] sm:w-[330px] lg:w-[430px] h-[300px] sm:h-[380px] lg:h-[490px] rounded-full opacity-40 blur-2xl"
+                style={{
+                  background: "radial-gradient(circle at 50% 45%, rgba(59,201,255,0.15), rgba(124,92,255,0.10), transparent 65%)",
                 }}
               />
             </div>

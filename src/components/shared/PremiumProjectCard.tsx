@@ -17,6 +17,7 @@ interface PremiumProjectCardProps {
   role?: string;
   status?: string;
   badges?: { label: string; color?: string }[];
+  autoplay?: boolean;
 }
 
 const DEFAULT_COLORS = {
@@ -92,6 +93,7 @@ export function PremiumProjectCard({
   role,
   status,
   badges,
+  autoplay,
 }: PremiumProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -143,6 +145,7 @@ export function PremiumProjectCard({
             isHovered={isHovered}
             aspectRatio="16/9"
             roundedCorners="20px 20px 0 0"
+            autoplay={autoplay}
           />
 
           {/* Badges overlay */}

@@ -105,6 +105,12 @@
   50% { transform: translateY(-12px); }
 }
 
+/* Hero portrait — subtle 3px float (2–4px range) */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -112,6 +118,156 @@
 /* Disable float animation on mobile for performance */
 @media (max-width: 768px) {
   .animate-float { animation: none !important; }
+}
+
+/* ============================================
+   HERO PREMIUM BACKGROUND
+   ============================================ */
+/* Layer 1 — deep radial gradient with slow breathing */
+.hero-base {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 120% 90% at 50% -10%, #12122c 0%, #0a0f1e 48%, #050816 100%);
+  animation: hero-base-breath 22s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@keyframes hero-base-breath {
+  0%, 100% { transform: scale(1); opacity: 0.92; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* Layer 3 — soft aurora glow (purple / blue / cyan) */
+.hero-aurora {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.hero-aurora-a {
+  width: 60vw;
+  height: 60vw;
+  left: -15vw;
+  top: -22vw;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.10) 0%, transparent 60%);
+  animation: hero-aurora-a 80s ease-in-out infinite;
+}
+.hero-aurora-b {
+  width: 55vw;
+  height: 55vw;
+  right: -16vw;
+  top: -12vw;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+  animation: hero-aurora-b 95s ease-in-out infinite;
+}
+.hero-aurora-c {
+  width: 50vw;
+  height: 50vw;
+  left: 18vw;
+  bottom: -28vw;
+  background: radial-gradient(circle, rgba(59, 201, 255, 0.06) 0%, transparent 60%);
+  animation: hero-aurora-c 70s ease-in-out infinite;
+}
+@keyframes hero-aurora-a {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(4vw, 3vw, 0) rotate(6deg); }
+}
+@keyframes hero-aurora-b {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(-3vw, 4vw, 0) rotate(-5deg); }
+}
+@keyframes hero-aurora-c {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-4vw, -3vw, 0); }
+}
+
+/* Layer 4 — floating blurred light orbs (kept at edges, away from text) */
+.hero-orb-wrap {
+  position: absolute;
+  pointer-events: none;
+}
+.hero-orb {
+  border-radius: 9999px;
+}
+.hero-orb-a {
+  width: 28rem;
+  height: 28rem;
+  top: -8rem;
+  right: -10rem;
+  background: radial-gradient(circle, rgba(124, 92, 255, 0.10) 0%, transparent 65%);
+  animation: hero-orb-a 34s ease-in-out infinite;
+}
+.hero-orb-b {
+  width: 24rem;
+  height: 24rem;
+  bottom: -6rem;
+  right: 22%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 65%);
+  animation: hero-orb-b 28s ease-in-out infinite;
+}
+.hero-orb-c {
+  width: 20rem;
+  height: 20rem;
+  bottom: -8rem;
+  left: -6rem;
+  background: radial-gradient(circle, rgba(59, 201, 255, 0.07) 0%, transparent 65%);
+  animation: hero-orb-c 40s ease-in-out infinite;
+}
+@keyframes hero-orb-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-2.5rem, 2rem, 0); }
+}
+@keyframes hero-orb-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(2rem, -1.5rem, 0); }
+}
+@keyframes hero-orb-c {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(1.5rem, 2rem, 0); }
+}
+
+/* Layer 6 — soft glow that follows the cursor */
+.hero-cursor-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44rem;
+  height: 44rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(124, 92, 255, 0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Balanced lighting — very soft radial glow on the right, near the photo */
+.hero-balance-glow {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  width: 38rem;
+  height: 38rem;
+  margin-top: -19rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(59, 201, 255, 0.05) 0%, rgba(124, 92, 255, 0.04) 35%, transparent 65%);
+  animation: hero-balance-glow-breathe 34s ease-in-out infinite;
+}
+@keyframes hero-balance-glow-breathe {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+/* Layer 5 — subtle noise texture */
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  pointer-events: none;
+  background-size: 200px 200px;
+}
+
+/* Reduce aurora/orb motion cost on small screens */
+@media (max-width: 768px) {
+  .hero-aurora-a, .hero-aurora-b, .hero-aurora-c { width: 90vw; height: 90vw; }
+  .hero-cursor-glow { display: none; }
+  .hero-balance-glow { width: 24rem; height: 24rem; margin-top: -12rem; }
 }
 
 @layer components {

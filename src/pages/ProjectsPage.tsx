@@ -16,11 +16,13 @@ import mp1 from "@/assets/images/projects/mp1.png";
 import mp2 from "@/assets/images/projects/mp2.png";
 import mp3 from "@/assets/images/projects/mp3.png";
 import sp1 from "@/assets/images/projects/sp1.png";
+import as1 from "@/assets/images/projects/as-1.png";
+import as2 from "@/assets/images/projects/as-2.png";
+import as3 from "@/assets/images/projects/as-3.png";
 import boutiqueSvg from "@/assets/images/projects/boutique-ecommerce.svg";
 import auraSvg from "@/assets/images/projects/aura-collection.svg";
 import visicoreSvg from "@/assets/images/projects/visicore.svg";
 import mealSvg from "@/assets/images/projects/meal-management.svg";
-import asthaSvg from "@/assets/images/projects/astha.svg";
 
 const ProjectsScene = React.lazy(() => import("@/components/three/ProjectsScene").then(m => ({ default: m.ProjectsScene })));
 
@@ -31,13 +33,15 @@ const projectConfigs: Record<string, {
   badges?: { label: string; color?: string }[];
   role?: string;
   status?: string;
+  autoplay?: boolean;
 }> = {
   "astha": {
     images: [
-      { src: asthaSvg, alt: "ASTHA – Service Marketplace" },
-      { src: asthaSvg, alt: "ASTHA – Smart Booking" },
-      { src: asthaSvg, alt: "ASTHA – Admin Panel" },
+      { src: as1, alt: "ASTHA – Service Marketplace" },
+      { src: as2, alt: "ASTHA – Smart Booking" },
+      { src: as3, alt: "ASTHA – Admin Panel" },
     ],
+    autoplay: true,
     features: [
       "Multi-role Authentication",
       "Smart Service Booking",
@@ -380,6 +384,7 @@ export default function ProjectsPage() {
                       role={config.role}
                       status={config.status}
                       badges={config.badges}
+                      autoplay={config.autoplay}
                     />
                   </div>
                 </ScrollReveal>

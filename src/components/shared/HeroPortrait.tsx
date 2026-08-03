@@ -14,9 +14,9 @@ export function HeroPortrait({ variant = "hero" }: HeroPortraitProps) {
       <div
         className={`relative overflow-hidden ${
           isHero ? "rounded-[24px]" : "rounded-[24px]"
-        } ${isHero ? "animate-[float_6s_ease-in-out_infinite]" : ""}`}
+        } ${isHero ? "animate-[hero-float_6s_ease-in-out_infinite]" : ""}`}
         style={isHero ? {
-          animation: "float 6s ease-in-out infinite",
+          animation: "hero-float 6s ease-in-out infinite",
         } : undefined}
       >
         <div
@@ -30,7 +30,7 @@ export function HeroPortrait({ variant = "hero" }: HeroPortraitProps) {
           style={{
             border: "1px solid rgba(255,255,255,0.1)",
             boxShadow: isHero
-              ? "0 25px 50px -12px rgba(124,92,255,0.25), 0 0 0 1px rgba(255,255,255,0.05)"
+              ? "0 25px 60px -12px rgba(124,92,255,0.28), 0 20px 45px -12px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05), inset 0 0 24px rgba(255,255,255,0.05)"
               : "0 20px 40px -12px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05)",
           }}
         >
@@ -48,14 +48,6 @@ export function HeroPortrait({ variant = "hero" }: HeroPortraitProps) {
               transform: isHero ? "scale(1.05)" : "scale(0.95)",
             }}
           />
-          {isHero && (
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(180deg, transparent 40%, rgba(5,5,5,0.6) 100%)",
-              }}
-            />
-          )}
         </div>
       </div>
     </div>
