@@ -12,6 +12,7 @@ interface ProjectCardProps {
   premium?: boolean;
   subtitle?: string;
   status?: string;
+  role?: string;
   badgeLabel?: string;
   imageSrc: string;
   imageAspectRatio?: string;
@@ -84,7 +85,7 @@ function getScheme(title: string) {
   };
 }
 
-export function ProjectCard({ title, description, tags, slug, featured, premium, subtitle, status = "Completed", badgeLabel = "Featured", imageSrc, imageAspectRatio = "16/11", screenshots }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, slug, featured, premium, subtitle, status = "Completed", role, badgeLabel = "Featured", imageSrc, imageAspectRatio = "16/11", screenshots }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [activeScreenshot, setActiveScreenshot] = useState(0);
@@ -287,11 +288,19 @@ export function ProjectCard({ title, description, tags, slug, featured, premium,
             )}
 
             {/* Status badge */}
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: scheme.primary }} />
               <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
                 {status}
               </span>
+              {role && (
+                <>
+                  <span className="text-white/15">•</span>
+                  <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
+                    {role}
+                  </span>
+                </>
+              )}
             </div>
 
             {/* Description */}

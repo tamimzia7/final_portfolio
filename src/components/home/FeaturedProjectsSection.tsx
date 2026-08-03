@@ -24,14 +24,15 @@ const featuredProjects = [
   {
     title: "ASTHA (আস্থা)",
     description:
-      "A comprehensive home and business service marketplace platform that connects customers with verified service providers across Bangladesh.",
+      "A modern service marketplace platform that connects customers with verified professionals across Bangladesh through a secure, scalable, and user-friendly digital experience.",
     tags: ["Laravel 12", "PHP 8.3", "MySQL", "REST API", "Tailwind CSS", "JavaScript"],
     slug: "astha",
     featured: true,
     premium: true,
-    subtitle: "Trusted Home Service Marketplace",
+    subtitle: "Trusted Home & Business Service Marketplace",
     status: "Active Development",
-    badgeLabel: "Featured Project",
+    role: "Full Stack Developer",
+    badgeLabel: "Flagship Project",
     image: astha,
   },
   {
@@ -137,6 +138,7 @@ export function FeaturedProjectsSection() {
               premium={featuredProjects[0].premium}
               subtitle={featuredProjects[0].subtitle}
               status={featuredProjects[0].status}
+              role={featuredProjects[0].role}
               badgeLabel={featuredProjects[0].badgeLabel}
               imageSrc={featuredProjects[0].image}
               screenshots={featuredProjects[0].screenshots}

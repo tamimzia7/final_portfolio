@@ -11,6 +11,7 @@ import AboutPage from "@/pages/AboutPage";
 import SkillsPage from "@/pages/SkillsPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import ProjectDetailPage from "@/pages/ProjectDetailPage";
+import AsthaCaseStudyPage from "@/pages/AsthaCaseStudyPage";
 import ExperiencePage from "@/pages/ExperiencePage";
 import GitHubPage from "@/pages/GitHubPage";
 import ContactPage from "@/pages/ContactPage";
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/skills" element={<SkillsPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/astha" element={<AsthaCaseStudyPage />} />
           <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path="/experience" element={<ExperiencePage />} />
           <Route path="/github" element={<GitHubPage />} />

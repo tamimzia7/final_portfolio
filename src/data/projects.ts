@@ -30,7 +30,7 @@ export const projects: Project[] = [
     slug: "astha",
     title: "ASTHA (আস্থা)",
     description: "A comprehensive home and business service marketplace platform that connects customers with verified service providers across Bangladesh.",
-    shortDesc: "Trusted Home Service Marketplace",
+    shortDesc: "Trusted Home & Business Service Marketplace",
     longDescription: "ASTHA (আস্থা) is a comprehensive home and business service marketplace platform that connects customers with verified service providers across Bangladesh. The platform covers the full service lifecycle — multi-role authentication, smart service booking, live GPS tracking, real-time notifications, secure online payments, ratings & reviews, a provider dashboard, and an admin panel — making it a trusted one-stop destination for home and business services.",
     category: "Laravel",
     tags: ["Laravel 12", "PHP 8.3", "MySQL", "Tailwind CSS", "JavaScript", "REST API"],
