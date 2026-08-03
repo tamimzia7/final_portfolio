@@ -39,9 +39,12 @@ const featuredProjects = [
     image: astha,
     screenshots: [as1, as2, as3],
     carousel: true,
+    caseStudyPath: "/projects/astha",
+    liveUrl: "#",
+    githubUrl: "https://github.com/tamimzia7",
   },
   {
-    title: "Boutique E-commerce Platform",
+    title: "Naw Boutique",
     description:
       "A complete Laravel-based fashion e-commerce platform featuring authentication, product management, shopping cart, wishlist, order processing, reviews, and a powerful admin dashboard.",
     tags: ["Laravel", "PHP", "MySQL", "Blade", "JavaScript"],
@@ -49,9 +52,12 @@ const featuredProjects = [
     featured: true,
     image: bp1,
     screenshots: [bp1, bp2, bp3],
+    caseStudyPath: "/projects/naw-boutique",
+    liveUrl: "#",
+    githubUrl: "https://github.com/tamimzia7/boutique-ecommerce",
   },
   {
-    title: "AURA Collection",
+    title: "AURA",
     description:
       "Luxury saree e-commerce platform with premium UI, modern shopping experience, wishlist, secure checkout, and advanced admin management.",
     tags: ["Laravel", "PHP", "MySQL", "TailwindCSS"],
@@ -59,6 +65,9 @@ const featuredProjects = [
     featured: true,
     image: ap2,
     screenshots: [ap2, ap1, ap3],
+    caseStudyPath: "/projects/aura",
+    liveUrl: "#",
+    githubUrl: "https://github.com/tamimzia7/aura-collection",
   },
   {
     // @todo Replace with vp1, vp2, vp3 screenshots when provided
@@ -148,6 +157,9 @@ export function FeaturedProjectsSection() {
               imageSrc={featuredProjects[0].image}
               screenshots={featuredProjects[0].screenshots}
               carousel={featuredProjects[0].carousel}
+              caseStudyPath={featuredProjects[0].caseStudyPath}
+              liveUrl={featuredProjects[0].liveUrl}
+              githubUrl={featuredProjects[0].githubUrl}
               imageAspectRatio="4/3"
             />
           </div>
@@ -160,6 +172,9 @@ export function FeaturedProjectsSection() {
               featured={featuredProjects[1].featured}
               imageSrc={featuredProjects[1].image}
               screenshots={featuredProjects[1].screenshots}
+              caseStudyPath={featuredProjects[1].caseStudyPath}
+              liveUrl={featuredProjects[1].liveUrl}
+              githubUrl={featuredProjects[1].githubUrl}
             />
           </div>
 
@@ -172,6 +187,9 @@ export function FeaturedProjectsSection() {
               slug={featuredProjects[2].slug}
               imageSrc={featuredProjects[2].image}
               imageAspectRatio="21/13"
+              caseStudyPath={featuredProjects[2].caseStudyPath}
+              liveUrl={featuredProjects[2].liveUrl}
+              githubUrl={featuredProjects[2].githubUrl}
             />
           </div>
           <div className="project-card-wrapper md:mt-8">

@@ -18,10 +18,13 @@ interface ProjectCardProps {
   imageAspectRatio?: string;
   screenshots?: string[];
   carousel?: boolean;
+  caseStudyPath?: string;
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
 const colorSchemes: Record<string, { primary: string; primaryLight: string; primaryDark: string; glow: string; border: string; tagBg: string; tagText: string; gradient: string }> = {
-  "Boutique E-commerce Platform": {
+  "Naw Boutique": {
     primary: "#FF2D20",
     primaryLight: "rgba(255,45,32,0.12)",
     primaryDark: "rgba(255,45,32,0.08)",
@@ -31,7 +34,7 @@ const colorSchemes: Record<string, { primary: string; primaryLight: string; prim
     tagText: "#FF2D20",
     gradient: "from-[#FF2D20] via-[#FF6B35] to-[#FF8C42]",
   },
-  "AURA Collection": {
+  AURA: {
     primary: "#A855F7",
     primaryLight: "rgba(168,85,247,0.12)",
     primaryDark: "rgba(168,85,247,0.08)",
@@ -39,7 +42,7 @@ const colorSchemes: Record<string, { primary: string; primaryLight: string; prim
     border: "rgba(168,85,247,0.2)",
     tagBg: "rgba(168,85,247,0.15)",
     tagText: "#A855F7",
-    gradient: "from-[#A855F7] via-[#C084FC] to-[#D8B4FE]",
+    gradient: "from-[#A855F7] via-[#C084FC] to-[#F59E0B]",
   },
   VisiCore: {
     primary: "#3BC9FF",
@@ -86,7 +89,7 @@ function getScheme(title: string) {
   };
 }
 
-export function ProjectCard({ title, description, tags, slug, featured, premium, subtitle, status = "Completed", role, badgeLabel = "Featured", imageSrc, imageAspectRatio = "16/11", screenshots, carousel = false }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, slug, featured, premium, subtitle, status = "Completed", role, badgeLabel = "Featured", imageSrc, imageAspectRatio = "16/11", screenshots, carousel = false, caseStudyPath, liveUrl, githubUrl }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [activeScreenshot, setActiveScreenshot] = useState(0);
@@ -169,6 +172,13 @@ export function ProjectCard({ title, description, tags, slug, featured, premium,
 
   const scheme = getScheme(title);
 
+  const handleExternal = (e: React.MouseEvent, url?: string) => {
+    if (!url || url === "#") return;
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -180,7 +190,7 @@ export function ProjectCard({ title, description, tags, slug, featured, premium,
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       className="group relative cursor-pointer"
     >
-      <Link to={`/projects/${slug}`} className="block">
+      <Link to={caseStudyPath || `/projects/${slug}`} className="block">
         <div
           className={cn(
             "relative overflow-hidden rounded-3xl transition-all duration-700 h-full flex flex-col",
@@ -490,12 +500,14 @@ export function ProjectCard({ title, description, tags, slug, featured, premium,
               }}
             >
               <span
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-semibold rounded-full transition-all duration-300 cursor-default"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-semibold rounded-full transition-all duration-300"
                 style={{
                   background: `linear-gradient(135deg, ${scheme.primary} 0%, ${scheme.primary}dd 100%)`,
                   color: "white",
+                  cursor: liveUrl && liveUrl !== "#" ? "pointer" : "default",
                   boxShadow: isHovered ? `0 8px 25px -5px ${scheme.glow}` : "none",
                 }}
+                onClick={(e) => handleExternal(e, liveUrl)}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -504,12 +516,14 @@ export function ProjectCard({ title, description, tags, slug, featured, premium,
                 Live Demo
               </span>
               <span
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-semibold rounded-full border transition-all duration-300 cursor-default"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-semibold rounded-full border transition-all duration-300"
                 style={{
                   background: isHovered ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)",
                   color: "rgba(255,255,255,0.6)",
+                  cursor: githubUrl && githubUrl !== "#" ? "pointer" : "default",
                   borderColor: isHovered ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.08)",
                 }}
+                onClick={(e) => handleExternal(e, githubUrl)}
               >
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />

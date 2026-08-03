@@ -376,6 +376,7 @@ export default function ProjectsPage() {
                       images={config.images}
                       liveUrl={project.liveUrl}
                       githubUrl={project.githubUrl}
+                      caseStudyPath={project.caseStudyPath}
                       role={config.role}
                       status={config.status}
                       badges={config.badges}

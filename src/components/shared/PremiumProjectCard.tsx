@@ -13,6 +13,7 @@ interface PremiumProjectCardProps {
   accentColor?: string;
   liveUrl?: string;
   githubUrl?: string;
+  caseStudyPath?: string;
   role?: string;
   status?: string;
   badges?: { label: string; color?: string }[];
@@ -87,6 +88,7 @@ export function PremiumProjectCard({
   accentColor: customAccent,
   liveUrl,
   githubUrl,
+  caseStudyPath,
   role,
   status,
   badges,
@@ -108,13 +110,20 @@ export function PremiumProjectCard({
     ? { ...DEFAULT_COLORS, primary: customAccent, primaryLight: `${customAccent}1f`, primaryDark: `${customAccent}14`, glow: `${customAccent}26`, border: `${customAccent}33`, tagBg: `${customAccent}26`, tagText: customAccent }
     : colorSchemes[categoryKey] || DEFAULT_COLORS;
 
+  const handleExternal = (e: React.MouseEvent, url?: string) => {
+    if (!url || url === "#") return;
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div
       className="group relative cursor-pointer h-full"
       onMouseEnter={() => { if (!isTouchDevice) setIsHovered(true); }}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to={`/projects/${slug}`} className="block h-full">
+      <Link to={caseStudyPath || `/projects/${slug}`} className="block h-full">
         <div
           className="relative overflow-hidden rounded-[20px] h-full flex flex-col"
           style={{
@@ -262,9 +271,11 @@ export function PremiumProjectCard({
                   style={{
                     background: `linear-gradient(135deg, ${scheme.primary} 0%, ${scheme.primary}dd 100%)`,
                     color: "white",
+                    cursor: liveUrl !== "#" ? "pointer" : "default",
                     boxShadow: isHovered ? `0 6px 20px -4px ${scheme.glow}` : "none",
                     transition: "box-shadow 0.3s ease",
                   }}
+                  onClick={(e) => handleExternal(e, liveUrl)}
                 >
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -279,9 +290,11 @@ export function PremiumProjectCard({
                   style={{
                     background: isHovered ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)",
                     color: "rgba(255,255,255,0.6)",
+                    cursor: githubUrl !== "#" ? "pointer" : "default",
                     borderColor: isHovered ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.08)",
                     transition: "background 0.3s ease, border-color 0.3s ease",
                   }}
+                  onClick={(e) => handleExternal(e, githubUrl)}
                 >
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
@@ -296,7 +309,7 @@ export function PremiumProjectCard({
                   background: isHovered ? `${scheme.primaryLight}` : "transparent",
                 }}
               >
-                View Details
+                {caseStudyPath ? "View Case Study" : "View Details"}
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                 </svg>

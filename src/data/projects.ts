@@ -9,6 +9,7 @@ export interface Project {
   image?: string;
   liveUrl: string;
   githubUrl: string;
+  caseStudyPath?: string;
   problem: string;
   solution: string;
   features: string[];
@@ -35,7 +36,8 @@ export const projects: Project[] = [
     category: "Laravel",
     tags: ["Laravel 12", "PHP 8.3", "MySQL", "Tailwind CSS", "JavaScript", "REST API"],
     liveUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/tamimzia7",
+    caseStudyPath: "/projects/astha",
     problem: "Finding trusted service providers for home and business needs in Bangladesh is difficult. Customers face unverified providers, unclear pricing, no booking transparency, and no way to track service delivery in real time.",
     solution: "Built ASTHA as a full-service marketplace with verified provider onboarding, smart booking with live GPS tracking, real-time notifications, secure online payments, and a ratings & reviews system — giving customers trust and transparency at every step.",
     features: [
@@ -79,14 +81,15 @@ export const projects: Project[] = [
   },
   {
     slug: "boutique-ecommerce",
-    title: "Boutique E-commerce Platform",
+    title: "Naw Boutique",
     description: "Complete Laravel-based fashion e-commerce platform with authentication, product management, cart, wishlist, orders, reviews, and admin dashboard.",
     shortDesc: "Laravel fashion e-commerce platform",
     longDescription: "A full-featured fashion e-commerce platform built entirely with Laravel and Blade. The system includes customer-facing shopping features — product browsing, cart, wishlist, checkout, and reviews — alongside a comprehensive admin dashboard for managing products, orders, and customers.",
     category: "Laravel",
     tags: ["Laravel", "PHP", "MySQL", "Blade", "JavaScript"],
     liveUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/tamimzia7/boutique-ecommerce",
+    caseStudyPath: "/projects/naw-boutique",
     problem: "Fashion retailers need a tailored e-commerce solution that handles unique product attributes (sizes, colors, styles) while providing a seamless shopping experience and robust backend management.",
     solution: "Built a complete Laravel e-commerce platform with Blade templating, covering the full shopping lifecycle — from product discovery to order fulfillment — with a powerful admin dashboard for business management.",
     features: [
@@ -127,14 +130,15 @@ export const projects: Project[] = [
   },
   {
     slug: "aura-collection",
-    title: "AURA Collection",
+    title: "AURA",
     description: "Luxury saree e-commerce platform with premium UI, wishlist, secure checkout, and advanced admin management.",
     shortDesc: "Laravel luxury e-commerce platform",
-    longDescription: "AURA Collection is a luxury saree e-commerce platform built on a robust Laravel backend with TailwindCSS frontend. The system delivers a premium shopping experience with product showcases, wishlist management, secure checkout, and a comprehensive admin dashboard for inventory and order management.",
+    longDescription: "AURA is a luxury saree e-commerce platform built on a robust Laravel backend with TailwindCSS frontend. The system delivers a premium shopping experience with product showcases, wishlist management, secure checkout, and a comprehensive admin dashboard for inventory and order management.",
     category: "Laravel",
     tags: ["Laravel", "PHP", "MySQL", "TailwindCSS"],
     liveUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/tamimzia7/aura-collection",
+    caseStudyPath: "/projects/aura",
     problem: "Luxury saree retailers need an elegant online storefront that reflects premium brand values while handling complex product attributes unique to traditional wear.",
     solution: "Built a Laravel-powered e-commerce platform with TailwindCSS for a premium, responsive design. The backend handles product management, wishlist, secure checkout, and a full admin dashboard.",
     features: [
