@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/utils/cn";
@@ -17,6 +17,7 @@ interface ProjectCardProps {
   imageSrc: string;
   imageAspectRatio?: string;
   screenshots?: string[];
+  carousel?: boolean;
 }
 
 const colorSchemes: Record<string, { primary: string; primaryLight: string; primaryDark: string; glow: string; border: string; tagBg: string; tagText: string; gradient: string }> = {
@@ -85,14 +86,39 @@ function getScheme(title: string) {
   };
 }
 
-export function ProjectCard({ title, description, tags, slug, featured, premium, subtitle, status = "Completed", role, badgeLabel = "Featured", imageSrc, imageAspectRatio = "16/11", screenshots }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, slug, featured, premium, subtitle, status = "Completed", role, badgeLabel = "Featured", imageSrc, imageAspectRatio = "16/11", screenshots, carousel = false }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [activeScreenshot, setActiveScreenshot] = useState(0);
+  const touchStartX = useRef(0);
   // Detect touch device immediately (no need for state/effect since matchMedia is synchronous)
   const isTouchDevice = useRef(
     typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
   ).current;
+
+  // Carousel auto-play — infinite loop, pauses while hovered
+  useEffect(() => {
+    if (!carousel || !screenshots || screenshots.length < 2 || isHovered) return;
+    const id = setInterval(() => {
+      setActiveScreenshot((current) => (current + 1) % screenshots.length);
+    }, 3500);
+    return () => clearInterval(id);
+  }, [carousel, screenshots, isHovered]);
+
+  const handleSwipeStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleSwipeEnd = (e: React.TouchEvent) => {
+    if (!screenshots || screenshots.length < 2) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) < 40) return;
+    setActiveScreenshot((a) =>
+      delta < 0
+        ? (a + 1) % screenshots.length
+        : (a - 1 + screenshots.length) % screenshots.length
+    );
+  };
 
   // 3D Tilt — disabled on touch devices
   const x = useMotionValue(0);
@@ -178,18 +204,125 @@ export function ProjectCard({ title, description, tags, slug, featured, premium,
         >
           {/* Image Container — 65-70% of the card */}
           <div className="relative overflow-hidden" style={{ aspectRatio: imageAspectRatio }}>
-            {/* Main Preview Image */}
-            <img
-              src={screenshots ? screenshots[activeScreenshot] : imageSrc}
-              alt={screenshots ? `${title} screenshot ${activeScreenshot + 1}` : title}
-              loading="lazy"
-              className="w-full h-full object-cover transition-all duration-700"
-              style={{
-                transform: isHovered ? "scale(1.08)" : "scale(1)",
-                filter: isHovered ? "brightness(1.1) contrast(1.05)" : "brightness(0.9) contrast(1)",
-                borderRadius: "24px 24px 0 0",
-              }}
-            />
+            {carousel && screenshots && screenshots.length > 1 ? (
+              <>
+                {/* Carousel slides — stacked crossfade */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    transform: isHovered ? "scale(1.08)" : "scale(1)",
+                    transition: "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+                    borderRadius: "24px 24px 0 0",
+                    touchAction: "pan-y",
+                  }}
+                  onTouchStart={handleSwipeStart}
+                  onTouchEnd={handleSwipeEnd}
+                >
+                  {screenshots.map((src, idx) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt={`${title} screenshot ${idx + 1}`}
+                      loading="lazy"
+                      draggable={false}
+                      className="absolute inset-0 w-full h-full object-cover object-top select-none"
+                      style={{
+                        opacity: idx === activeScreenshot ? 1 : 0,
+                        transition: "opacity 0.8s ease",
+                        filter: isHovered ? "brightness(1.1) contrast(1.05)" : "brightness(0.9) contrast(1)",
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Previous arrow */}
+                <button
+                  type="button"
+                  aria-label="Previous screenshot"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActiveScreenshot((a) => (a - 1 + screenshots.length) % screenshots.length);
+                  }}
+                  className="absolute left-3 top-1/2 z-20 w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all duration-300"
+                  style={{
+                    background: "rgba(5,5,5,0.55)",
+                    borderColor: scheme.border,
+                    color: "rgba(255,255,255,0.85)",
+                    opacity: isHovered || isTouchDevice ? 1 : 0,
+                    transform: "translateY(-50%)",
+                    boxShadow: `0 0 20px ${scheme.glow}`,
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </button>
+
+                {/* Next arrow */}
+                <button
+                  type="button"
+                  aria-label="Next screenshot"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActiveScreenshot((a) => (a + 1) % screenshots.length);
+                  }}
+                  className="absolute right-3 top-1/2 z-20 w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all duration-300"
+                  style={{
+                    background: "rgba(5,5,5,0.55)",
+                    borderColor: scheme.border,
+                    color: "rgba(255,255,255,0.85)",
+                    opacity: isHovered || isTouchDevice ? 1 : 0,
+                    transform: "translateY(-50%)",
+                    boxShadow: `0 0 20px ${scheme.glow}`,
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </button>
+
+                {/* Pagination dots */}
+                <div
+                  className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full backdrop-blur-xl"
+                  style={{ background: "rgba(5,5,5,0.55)", border: `1px solid ${scheme.border}` }}
+                >
+                  {screenshots.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      aria-label={`Go to screenshot ${idx + 1}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setActiveScreenshot(idx);
+                      }}
+                      className="rounded-full transition-all duration-300"
+                      style={{
+                        width: idx === activeScreenshot ? 18 : 6,
+                        height: 6,
+                        background: idx === activeScreenshot ? scheme.primary : "rgba(255,255,255,0.25)",
+                        boxShadow: idx === activeScreenshot ? `0 0 10px ${scheme.glow}` : "none",
+                      }}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : (
+              /* Main Preview Image */
+              <img
+                src={screenshots ? screenshots[activeScreenshot] : imageSrc}
+                alt={screenshots ? `${title} screenshot ${activeScreenshot + 1}` : title}
+                loading="lazy"
+                className="w-full h-full object-cover transition-all duration-700"
+                style={{
+                  transform: isHovered ? "scale(1.08)" : "scale(1)",
+                  filter: isHovered ? "brightness(1.1) contrast(1.05)" : "brightness(0.9) contrast(1)",
+                  borderRadius: "24px 24px 0 0",
+                }}
+              />
+            )}
 
             {/* Gradient overlay on hover */}
             <div
@@ -241,7 +374,7 @@ export function ProjectCard({ title, description, tags, slug, featured, premium,
           </div>
 
           {/* Screenshot Thumbnails — shown when multiple screenshots available */}
-          {screenshots && screenshots.length > 1 && (
+          {screenshots && screenshots.length > 1 && !carousel && (
             <div className="flex gap-2 px-6 md:px-7 lg:px-8 pt-4 pb-2 relative z-10">
               {screenshots.map((src, idx) => (
                 <button

@@ -1,13 +1,16 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { PageTransition } from "@/components/animations/PageTransition";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Button } from "@/components/shared/Button";
 import asthaImage from "@/assets/images/projects/astha.svg";
+import as1 from "@/assets/images/projects/as-1.png";
+import as2 from "@/assets/images/projects/as-2.png";
+import as3 from "@/assets/images/projects/as-3.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -407,13 +410,27 @@ const STACK = [
 ];
 
 const GALLERY = [
-  { label: "Homepage", wide: true },
-  { label: "Categories" },
-  { label: "Booking" },
-  { label: "Provider Dashboard" },
-  { label: "Customer Dashboard" },
-  { label: "Admin Dashboard" },
-  { label: "Responsive Mobile View", phone: true },
+  {
+    src: as1,
+    label: "Homepage Experience",
+    alt: "ASTHA Homepage Hero",
+    description: "Modern landing page with intelligent service search, featured categories, and quick booking experience.",
+    badges: ["Hero UI", "Smart Search", "Categories"],
+  },
+  {
+    src: as2,
+    label: "Verified Service Providers",
+    alt: "ASTHA Service Providers",
+    description: "Browse verified professionals with ratings, experience, pricing, availability, and instant booking options.",
+    badges: ["Verified", "Booking", "Reviews"],
+  },
+  {
+    src: as3,
+    label: "Advanced Search & Filtering",
+    alt: "ASTHA Advanced Search & Filters",
+    description: "Powerful filtering system for category, district, experience, ratings, and provider verification.",
+    badges: ["Filters", "Location", "Smart Search"],
+  },
 ];
 
 const CHALLENGES = [
@@ -477,6 +494,23 @@ const LEARNINGS = [
 ];
 
 export default function AsthaCaseStudyPage() {
+  const [activeShot, setActiveShot] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (activeShot === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setActiveShot(null); return; }
+      if (e.key === "ArrowRight") setActiveShot((a) => (a === null ? a : (a + 1) % GALLERY.length));
+      if (e.key === "ArrowLeft") setActiveShot((a) => (a === null ? a : (a - 1 + GALLERY.length) % GALLERY.length));
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [activeShot]);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -956,7 +990,7 @@ export default function AsthaCaseStudyPage() {
         <SectionHeading
           title="Project"
           highlight="Gallery"
-          subtitle="A preview of the ASTHA experience — real screenshots coming soon."
+          subtitle="Real screenshots of the ASTHA experience — click any screenshot to view it fullscreen."
         />
         <motion.div
           variants={container}
@@ -965,30 +999,144 @@ export default function AsthaCaseStudyPage() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
         >
-          {GALLERY.map((g) => (
-            <motion.div key={g.label} variants={item} className={g.wide ? "lg:col-span-2" : ""}>
+          {GALLERY.map((g, i) => (
+            <motion.div key={g.label} variants={item}>
               <motion.div
-                className={`group relative overflow-hidden rounded-4xl flex flex-col items-center justify-center gap-4 transition-all duration-500 border border-dashed ${g.phone ? "aspect-[9/14] max-w-[240px] mx-auto" : "aspect-[16/10]"}`}
-                style={{
-                  borderColor: "rgba(139,92,246,0.2)",
-                  background: "linear-gradient(160deg, rgba(139,92,246,0.05) 0%, rgba(5,5,5,0.4) 60%)",
+                role="button"
+                tabIndex={0}
+                aria-label={`Open ${g.label} fullscreen`}
+                className="group h-full rounded-4xl overflow-hidden cursor-zoom-in transition-all duration-500 glass glass-hover focus:outline-none"
+                whileHover={{ y: -8 }}
+                onClick={() => setActiveShot(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActiveShot(i); }
                 }}
-                whileHover={{ y: -6, borderColor: "rgba(139,92,246,0.5)" }}
               >
-                <span
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                  style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "#8B5CF6" }}
-                >
-                  <Icon name={g.phone ? "smartphone" : "monitor"} className="w-6 h-6" />
-                </span>
-                <div className="text-center px-4">
-                  <p className="text-sm font-bold text-white/70 mb-1">{g.label}</p>
-                  <p className="text-[11px] text-white/25">Screenshot coming soon</p>
+                <div className="relative overflow-hidden" style={{ aspectRatio: "16/10" }}>
+                  <img
+                    src={g.src}
+                    alt={g.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    style={{ filter: "brightness(0.92)" }}
+                  />
+                  <div
+                    className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      opacity: 1,
+                      background: "linear-gradient(180deg, transparent 55%, rgba(5,5,5,0.85) 100%)",
+                    }}
+                  />
+                  <span
+                    className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 opacity-0 group-hover:opacity-100"
+                    style={{ background: "rgba(5,5,5,0.6)", border: "1px solid rgba(139,92,246,0.4)", color: "#A78BFA", boxShadow: "0 0 25px rgba(139,92,246,0.3)" }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="m21 21-4.35-4.35" />
+                    </svg>
+                  </span>
+                </div>
+                <div className="p-6 md:p-7">
+                  <h3 className="text-lg font-bold text-white/90 mb-2">{g.label}</h3>
+                  <p className="text-sm text-white/40 leading-relaxed mb-5">{g.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {g.badges.map((badge) => (
+                      <span
+                        key={badge}
+                        className="px-3 py-1.5 text-[11px] font-medium rounded-full"
+                        style={{
+                          background: "rgba(139,92,246,0.08)",
+                          border: "1px solid rgba(139,92,246,0.18)",
+                          color: "rgba(255,255,255,0.55)",
+                        }}
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Lightbox */}
+        <AnimatePresence>
+          {activeShot !== null && (
+            <motion.div
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              style={{ background: "rgba(5,5,5,0.92)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)" }}
+              onClick={() => setActiveShot(null)}
+            >
+              <motion.div
+                className="relative w-full max-w-5xl"
+                initial={{ scale: 0.94, y: 24, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                exit={{ scale: 0.96, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  key={GALLERY[activeShot].src}
+                  src={GALLERY[activeShot].src}
+                  alt={GALLERY[activeShot].alt}
+                  className="w-full max-h-[76vh] object-contain rounded-3xl"
+                  style={{ boxShadow: "0 40px 120px -30px rgba(139,92,246,0.35)" }}
+                />
+                <div className="flex items-center justify-between gap-4 mt-5">
+                  <div>
+                    <p className="text-sm font-bold text-white/90 mb-1">{GALLERY[activeShot].label}</p>
+                    <p className="text-xs text-white/40 max-w-md">{GALLERY[activeShot].description}</p>
+                  </div>
+                  <span className="text-xs font-medium text-white/35 shrink-0">
+                    {activeShot + 1} / {GALLERY.length}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  aria-label="Close"
+                  onClick={() => setActiveShot(null)}
+                  className="absolute -top-4 -right-4 md:top-0 md:-right-14 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.35)", color: "#fff" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Previous screenshot"
+                  onClick={() => setActiveShot((a) => (a === null ? a : (a - 1 + GALLERY.length) % GALLERY.length))}
+                  className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-14 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.35)", color: "#fff" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Next screenshot"
+                  onClick={() => setActiveShot((a) => (a === null ? a : (a + 1) % GALLERY.length))}
+                  className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-14 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.35)", color: "#fff" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </SectionShell>
 
       {/* ============ SECTION 11 — CHALLENGES & SOLUTIONS ============ */}

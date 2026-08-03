@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { AuroraBackground } from "@/components/animations/AuroraBackground";
 import { NoiseOverlay } from "@/components/animations/NoiseOverlay";
 import { CursorGlow } from "@/components/animations/CursorGlow";
@@ -27,6 +28,7 @@ export default function App() {
       <NoiseOverlay />
       <CursorGlow />
       <Header />
+      <ScrollToTop />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage />} />

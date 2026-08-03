@@ -17,6 +17,9 @@ import mp2 from "@/assets/images/projects/mp2.png";
 import mp3 from "@/assets/images/projects/mp3.png";
 import visicore from "@/assets/images/projects/visicore.svg";
 import astha from "@/assets/images/projects/astha.svg";
+import as1 from "@/assets/images/projects/as-1.png";
+import as2 from "@/assets/images/projects/as-2.png";
+import as3 from "@/assets/images/projects/as-3.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +37,8 @@ const featuredProjects = [
     role: "Full Stack Developer",
     badgeLabel: "Flagship Project",
     image: astha,
+    screenshots: [as1, as2, as3],
+    carousel: true,
   },
   {
     title: "Boutique E-commerce Platform",
@@ -142,6 +147,7 @@ export function FeaturedProjectsSection() {
               badgeLabel={featuredProjects[0].badgeLabel}
               imageSrc={featuredProjects[0].image}
               screenshots={featuredProjects[0].screenshots}
+              carousel={featuredProjects[0].carousel}
               imageAspectRatio="4/3"
             />
           </div>
