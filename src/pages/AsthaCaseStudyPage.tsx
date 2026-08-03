@@ -7,7 +7,6 @@ import { PageTransition } from "@/components/animations/PageTransition";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Button } from "@/components/shared/Button";
-import asthaImage from "@/assets/images/projects/astha.svg";
 import as1 from "@/assets/images/projects/as-1.png";
 import as2 from "@/assets/images/projects/as-2.png";
 import as3 from "@/assets/images/projects/as-3.png";
@@ -412,25 +411,31 @@ const STACK = [
 const GALLERY = [
   {
     src: as1,
-    label: "Homepage Experience",
+    label: "Homepage",
     alt: "ASTHA Homepage Hero",
     description: "Modern landing page with intelligent service search, featured categories, and quick booking experience.",
     badges: ["Hero UI", "Smart Search", "Categories"],
   },
   {
     src: as2,
-    label: "Verified Service Providers",
+    label: "Service Providers",
     alt: "ASTHA Service Providers",
     description: "Browse verified service providers with ratings, experience, pricing, availability, and instant booking.",
     badges: ["Verified", "Booking", "Reviews"],
   },
   {
     src: as3,
-    label: "Advanced Search & Filtering",
+    label: "Advanced Search",
     alt: "ASTHA Advanced Search & Filters",
     description: "Powerful search and filtering by category, district, experience, ratings, and provider verification.",
     badges: ["Filters", "Location", "Smart Search"],
   },
+];
+
+const HERO_SLIDES = [
+  { src: as1, alt: "ASTHA Homepage Hero" },
+  { src: as2, alt: "ASTHA Service Providers" },
+  { src: as3, alt: "ASTHA Advanced Search & Filters" },
 ];
 
 const CHALLENGES = [
@@ -495,6 +500,15 @@ const LEARNINGS = [
 
 export default function AsthaCaseStudyPage() {
   const [activeShot, setActiveShot] = useState<number | null>(null);
+  const [heroShot, setHeroShot] = useState(0);
+  const [heroHovered, setHeroHovered] = useState(false);
+
+  // Hero screenshot slider — auto-plays every 4s, pauses while hovered
+  useEffect(() => {
+    if (heroHovered) return;
+    const id = setInterval(() => setHeroShot((a) => (a + 1) % HERO_SLIDES.length), 4000);
+    return () => clearInterval(id);
+  }, [heroHovered]);
 
   useEffect(() => {
     if (activeShot === null) return;
@@ -632,8 +646,74 @@ export default function AsthaCaseStudyPage() {
                     border: "1px solid rgba(139,92,246,0.18)",
                     boxShadow: "0 40px 120px -30px rgba(139,92,246,0.3)",
                   }}
+                  onMouseEnter={() => setHeroHovered(true)}
+                  onMouseLeave={() => setHeroHovered(false)}
                 >
-                  <img src={asthaImage} alt="ASTHA Service Marketplace" className="w-full h-auto" loading="lazy" />
+                  <div className="relative" style={{ aspectRatio: "16/10" }}>
+                    {HERO_SLIDES.map((slide, idx) => (
+                      <img
+                        key={slide.src}
+                        src={slide.src}
+                        alt={slide.alt}
+                        loading={idx === 0 ? "eager" : "lazy"}
+                        draggable={false}
+                        className="absolute inset-0 w-full h-full object-cover object-top select-none"
+                        style={{ opacity: idx === heroShot ? 1 : 0, transition: "opacity 0.8s ease" }}
+                      />
+                    ))}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{ background: "linear-gradient(180deg, transparent 60%, rgba(5,5,5,0.35) 100%)" }}
+                    />
+                  </div>
+
+                  {/* Previous */}
+                  <button
+                    type="button"
+                    aria-label="Previous screenshot"
+                    onClick={() => setHeroShot((a) => (a - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all duration-300 hover:scale-110"
+                    style={{ background: "rgba(5,5,5,0.55)", borderColor: "rgba(139,92,246,0.3)", color: "rgba(255,255,255,0.85)", boxShadow: "0 0 20px rgba(139,92,246,0.2)" }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m15 18-6-6 6-6" />
+                    </svg>
+                  </button>
+
+                  {/* Next */}
+                  <button
+                    type="button"
+                    aria-label="Next screenshot"
+                    onClick={() => setHeroShot((a) => (a + 1) % HERO_SLIDES.length)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all duration-300 hover:scale-110"
+                    style={{ background: "rgba(5,5,5,0.55)", borderColor: "rgba(139,92,246,0.3)", color: "rgba(255,255,255,0.85)", boxShadow: "0 0 20px rgba(139,92,246,0.2)" }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m9 18 6-6-6-6" />
+                    </svg>
+                  </button>
+
+                  {/* Dots */}
+                  <div
+                    className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full backdrop-blur-xl"
+                    style={{ background: "rgba(5,5,5,0.55)", border: "1px solid rgba(139,92,246,0.2)" }}
+                  >
+                    {HERO_SLIDES.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        aria-label={`Go to screenshot ${idx + 1}`}
+                        onClick={() => setHeroShot(idx)}
+                        className="rounded-full transition-all duration-300"
+                        style={{
+                          width: idx === heroShot ? 18 : 6,
+                          height: 6,
+                          background: idx === heroShot ? "#8B5CF6" : "rgba(255,255,255,0.25)",
+                          boxShadow: idx === heroShot ? "0 0 10px rgba(139,92,246,0.5)" : "none",
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
 
                 <div className="absolute -top-5 -right-4 md:-right-8 animate-float">
